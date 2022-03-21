@@ -1,0 +1,17 @@
+@import "./abstracts/variables";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 10px;
+  text-decoration: none;
+  list-style: none;
+  font-family: "Montserrat", sans-serif;
+}
+
+.App {
+  display: flex;
+  background-color: $background;
+  -webkit-tap-highlight-color: transparent;
+}
