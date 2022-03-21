@@ -1,0 +1,258 @@
+.navigation-bar {
+  z-index: 99;
+}
+
+.navigation-bar .menu-icon .dot-menu__checkbox {
+  display: none;
+}
+
+.navigation-bar .menu-icon .dot-menu__label {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  display: block;
+  width: 32px;
+  height: 32px;
+  background-color: #1fc2a0;
+  border-radius: 32px;
+  -webkit-transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;
+  cursor: pointer;
+  z-index: 99;
+}
+
+.navigation-bar .menu-icon .dot-menu__label:before,
+.navigation-bar .menu-icon .dot-menu__label:after,
+.navigation-bar .menu-icon .dot-menu__label span:before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  width: 4px;
+  height: 4px;
+  border-radius: 4px;
+  background-color: #fff;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.navigation-bar .menu-icon .dot-menu__label:before {
+  top: 20px;
+}
+
+.navigation-bar .menu-icon .dot-menu__label:after {
+  top: 8px;
+}
+
+.navigation-bar .menu-icon .dot-menu__label span:before {
+  top: 14px;
+}
+
+.navigation-bar .menu-icon .dot-menu__checkbox:checked ~ .dot-menu__label:before {
+  -webkit-transform: rotate(224deg) translate(9.5px, -1px);
+          transform: rotate(224deg) translate(9.5px, -1px);
+  -webkit-transform-origin: center center;
+          transform-origin: center center;
+  width: 60%;
+}
+
+.navigation-bar .menu-icon .dot-menu__checkbox:checked ~ .dot-menu__label:after {
+  -webkit-transform: rotate(136deg) translate(9.5px, 1px);
+          transform: rotate(136deg) translate(9.5px, 1px);
+  -webkit-transform-origin: center center;
+          transform-origin: center center;
+  width: 60%;
+}
+
+.navigation-bar .menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 80vw;
+  max-width: 300px;
+  min-width: 230px;
+  min-height: 588px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background-color: #1b1b21;
+  border-radius: 0 12px 12px 0;
+  -webkit-box-shadow: 0 0 30px #131318;
+          box-shadow: 0 0 30px #131318;
+}
+
+.navigation-bar .menu.none {
+  display: none;
+}
+
+.navigation-bar .menu .user-icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 2rem 2rem 7vh 0;
+  cursor: pointer;
+}
+
+.navigation-bar .menu .user-icon img {
+  width: 32px;
+  border-radius: 50%;
+}
+
+.navigation-bar .menu .user-icon div {
+  margin-right: 1rem;
+  text-align: right;
+}
+
+.navigation-bar .menu .user-icon div p {
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.navigation-bar .menu .menu-links {
+  margin-bottom: auto;
+}
+
+.navigation-bar .menu .menu-links li a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #60687c;
+  margin: 1.5rem 2rem 0 2rem;
+  border-radius: 16px;
+  padding: 1.5rem 2rem;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.navigation-bar .menu .menu-links li a svg {
+  font-size: 2.2rem;
+  margin-right: 1.5rem;
+}
+
+.navigation-bar .menu .menu-links li a:hover {
+  background-color: #21212b;
+  padding: 1.5rem 2rem;
+  color: #fff;
+}
+
+.navigation-bar .menu .menu-links li a:hover svg {
+  color: #1fc2a0;
+}
+
+.navigation-bar .menu .button-authentication-wrapper {
+  margin: 5vh 0;
+}
+
+.navigation-bar .menu .button-authentication-wrapper button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 500;
+  background-color: #1fc2a0;
+  padding: 1.5rem 5rem;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  margin: 0 auto;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.navigation-bar .menu .button-authentication-wrapper button svg {
+  font-size: 2rem;
+  margin-right: 1rem;
+}
+
+.navigation-bar .menu .button-authentication-wrapper button:hover {
+  background-color: #2debc1;
+}
+
+.navigation-bar .menu .button-authentication-wrapper p {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #fff;
+  margin-top: 1.5rem;
+}
+
+.navigation-bar .menu .button-authentication-wrapper p span {
+  font-size: 1.2rem;
+  color: #1fc2a0;
+  cursor: pointer;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.navigation-bar .menu .button-authentication-wrapper p span:hover {
+  color: #2debc1;
+}
+
+@media all and (min-width: 1024px) {
+  .navigation-bar .menu-icon {
+    display: none;
+  }
+  .navigation-bar .menu {
+    position: relative;
+    width: 280px;
+    height: calc(100vh - 4rem);
+    min-height: 680px;
+    border-radius: 12px;
+    margin: 2rem 0 2rem 2rem;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+  .navigation-bar .menu .user-icon {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    padding: 4rem 0 5vh 0;
+  }
+  .navigation-bar .menu .user-icon img {
+    width: 64px;
+    margin: 0;
+  }
+  .navigation-bar .menu .user-icon div {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .navigation-bar .menu .user-icon div p {
+    margin-top: 2rem;
+    font-size: 1.6rem;
+    margin-left: 4px;
+  }
+}
+/*# sourceMappingURL=NavigationBar.css.map */

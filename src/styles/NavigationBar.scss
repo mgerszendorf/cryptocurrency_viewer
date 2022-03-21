@@ -1,0 +1,222 @@
+@import "./abstracts/variables";
+@import "./abstracts//mixins";
+
+.navigation-bar {
+  z-index: 99;
+  .menu-icon {
+    .dot-menu__checkbox {
+      display: none;
+    }
+
+    .dot-menu__label {
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+      display: block;
+      width: $dot-menu-size;
+      height: $dot-menu-size;
+      background-color: $light-green;
+      border-radius: $dot-menu-size;
+      transition: background-color 0.2s linear;
+      cursor: pointer;
+      z-index: 99;
+    }
+
+    .dot-menu__label:before,
+    .dot-menu__label:after,
+    .dot-menu__label span:before {
+      content: "";
+      position: absolute;
+      left: $dot-menu-size / 2 - $dot-menu-dot-size / 2;
+      width: $dot-menu-dot-size;
+      height: $dot-menu-dot-size;
+      border-radius: $dot-menu-dot-size;
+      background-color: $dot-menu-dot-color;
+      transition: 0.4s;
+    }
+
+    .dot-menu__label:before {
+      top: ($dot-menu-size / 2 - $dot-menu-dot-size / 2) +
+        ($dot-menu-dot-size * 1.5);
+    }
+
+    .dot-menu__label:after {
+      top: ($dot-menu-size / 2 - $dot-menu-dot-size / 2) -
+        ($dot-menu-dot-size * 1.5);
+    }
+
+    .dot-menu__label span:before {
+      top: ($dot-menu-size / 2 - $dot-menu-dot-size / 2);
+    }
+
+    .dot-menu__checkbox:checked {
+      ~ .dot-menu__label:before {
+        transform: rotate(224deg) translate(9.5px, -1px);
+        transform-origin: center center;
+        width: 60%;
+      }
+
+      ~ .dot-menu__label:after {
+        transform: rotate(136deg) translate(9.5px, 1px);
+        transform-origin: center center;
+        width: 60%;
+      }
+    }
+  }
+
+  .menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 80vw;
+    max-width: 300px;
+    min-width: 230px;
+    min-height: 588px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: $elements_background;
+    border-radius: 0 12px 12px 0;
+    box-shadow: 0 0 30px #131318;
+
+    &.none {
+      display: none;
+    }
+
+    .user-icon {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 2rem 2rem 7vh 0;
+      cursor: pointer;
+
+      img {
+        width: 32px;
+        border-radius: 50%;
+      }
+
+      div {
+        margin-right: 1rem;
+        text-align: right;
+        p {
+          font-size: 1.2rem;
+          color: #fff;
+        }
+      }
+    }
+
+    .menu-links {
+      margin-bottom: auto;
+      li {
+        a {
+          @include row-y-center;
+          font-size: 1.6rem;
+          font-weight: 600;
+          color: $txt-grey;
+          margin: 1.5rem 2rem 0 2rem;
+          border-radius: 16px;
+          padding: 1.5rem 2rem;
+          transition: 0.2s;
+
+          svg {
+            font-size: 2.2rem;
+            margin-right: 1.5rem;
+          }
+
+          &:hover {
+            background-color: $light-grey;
+            padding: 1.5rem 2rem;
+            color: #fff;
+            svg {
+              color: $light-green;
+            }
+          }
+        }
+      }
+    }
+    .button-authentication-wrapper {
+      margin: 5vh 0;
+
+      button {
+        @include row-y-center;
+        color: #fff;
+        font-size: 1.6rem;
+        font-weight: 500;
+        background-color: $light-green;
+        padding: 1.5rem 5rem;
+        border-radius: 16px;
+        border: none;
+        cursor: pointer;
+        margin: 0 auto;
+        transition: 0.2s;
+
+        svg {
+          font-size: 2rem;
+          margin-right: 1rem;
+        }
+
+        &:hover {
+          background-color: $light-green-hover;
+        }
+      }
+
+      p {
+        text-align: center;
+        font-size: 1.2rem;
+        color: #fff;
+        margin-top: 1.5rem;
+        span {
+          font-size: 1.2rem;
+          color: $light-green;
+          cursor: pointer;
+          transition: 0.2s;
+
+          &:hover {
+            color: $light-green-hover;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media all and (min-width: 1024px) {
+  .navigation-bar {
+    .menu-icon {
+      display: none;
+    }
+
+    .menu {
+      position: relative;
+      width: 280px;
+      height: calc(100vh - 4rem);
+      min-height: 680px;
+      border-radius: 12px;
+      margin: 2rem 0 2rem 2rem;
+      box-shadow: none;
+
+      .user-icon {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 4rem 0 5vh 0;
+
+        img {
+          width: 64px;
+          margin: 0;
+        }
+
+        div {
+          display: flex;
+          p {
+            margin-top: 2rem;
+            font-size: 1.6rem;
+            margin-left: 4px;
+          }
+        }
+      }
+    }
+  }
+}
