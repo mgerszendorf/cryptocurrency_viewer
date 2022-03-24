@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import "./styles/App.css";
 
 import NavigationBar from "./components/NavigationBar";
 import "./styles/NavigationBar.css";
+
+import News from "./components/News";
+import "./styles/News.css";
 
 function App() {
   const [width, setWidth] = useState<number>(window.innerWidth);
@@ -22,6 +26,9 @@ function App() {
   return (
     <div className="App">
       <NavigationBar width={width} />
+      <Routes>
+        <Route path="/news" element={<News />} />
+      </Routes>
     </div>
   );
 }
