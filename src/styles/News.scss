@@ -7,7 +7,6 @@
   height: 100vh;
   min-height: 680px;
   padding: 2rem;
-  overflow-y: auto;
 
   .search-and-header-wrapper {
     width: 100%;
@@ -43,12 +42,13 @@
     .news-element {
       a {
         @include row-y-center;
-        background-color: $elements_background;
+        background-color: $elements-background;
         padding: 1.5rem;
         border-radius: 12px;
         overflow: hidden;
         margin: 2rem 0;
         max-width: 450px;
+        transition: background-color 0.2s;
 
         .news-element-img {
           max-width: 100px;
@@ -68,6 +68,12 @@
             font-size: 1rem;
             color: #fff;
           }
+        }
+      }
+
+      &:hover {
+        a {
+          background-color: $elements-hover;
         }
       }
     }
@@ -95,10 +101,27 @@
 
     .news-element-wrapper {
       margin: 0 auto;
+      overflow-y: auto;
+      padding: 0 2rem;
+
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: $elements_background;
+        border-radius: 100vw;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: $scrollbar-thumb-color;
+        border-radius: 100vw;
+      }
+
       .news-element {
         a {
           width: 60vw;
-          max-width: 650px;
+          max-width: 550px;
           .news-element-information-wrapper {
             .news-element-header {
               font-size: 1.6rem;
@@ -119,7 +142,7 @@
 
         .news-element {
           a {
-            max-width: 450px;
+            max-width: 430px;
           }
         }
       }

@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
 import moment from "moment";
+import { INewsData, ICryptoList } from "../interfaces/interfaces";
 import noImage from "../img/no_photo.png";
 
 import { getNews } from "../api/newsApi";
 import { getCryptoList } from "../api/cryptocurrencyApi";
 
+import Loader from "./Loader";
+
 function News() {
   const [newsCategory, setNewsCategory] = useState<string>("Bitcoin");
-  const [newsData, setNewsData] = useState<any>();
-  const [cryptoList, setCryptoList] = useState<Object[]>();
+  const [newsData, setNewsData] = useState<INewsData>();
+  const [cryptoList, setCryptoList] = useState<ICryptoList>();
 
+  //Fetching data
   useEffect(() => {
     async function fetchData() {
       await getNews(newsCategory, 100).then((data) => {
@@ -23,8 +27,9 @@ function News() {
     fetchData();
   }, [setNewsData, setCryptoList, newsCategory]);
 
-  if (!cryptoList) return null;
-  if (!newsData?.value) return null;
+  //Check that the data is not null
+  if (!newsData?.value) return <Loader />;
+  if (!cryptoList) return <Loader />;
 
   return (
     <section className="news">
@@ -36,9 +41,9 @@ function News() {
           className="search-cryptocurrency"
           onChange={(e) => [setNewsCategory(e.target.value)]}
         >
-          {cryptoList?.map((currency: any) => (
-            <option key={currency.cmcRank} value={currency.name}>
-              {currency.name}
+          {cryptoList?.data?.coins?.map((currency: any) => (
+            <option key={currency?.uuid} value={currency?.name}>
+              {currency?.name}
             </option>
           ))}
         </select>
