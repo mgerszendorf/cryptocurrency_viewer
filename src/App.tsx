@@ -8,8 +8,12 @@ import "./styles/NavigationBar.css";
 import News from "./components/News";
 import "./styles/News.css";
 
+import Ranking from "./components/Ranking";
+import "./styles/Ranking.css";
+
 function App() {
   const [width, setWidth] = useState<number>(window.innerWidth);
+  const [activeUuid, setActiveUuid] = useState<string>("Qwsogvtv82FCd");
 
   // Checking the window size for the mobile version
   function handleWindowSizeChange() {
@@ -28,6 +32,10 @@ function App() {
       <NavigationBar width={width} />
       <Routes>
         <Route path="/news" element={<News />} />
+        <Route
+          path="/ranking"
+          element={<Ranking setActiveUuid={setActiveUuid} />}
+        />
       </Routes>
     </div>
   );
