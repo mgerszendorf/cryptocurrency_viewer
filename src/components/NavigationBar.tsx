@@ -18,6 +18,13 @@ interface NavigationBarProps {
 export const NavigationBar: React.FC<NavigationBarProps> = ({ width }) => {
   const [activeMenu, setActiveMenu] = useState<boolean>(false);
 
+  // Disable scroll on body
+  if (activeMenu && width < 1024) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "visible";
+  }
+
   function handleMenuIcon() {
     setActiveMenu(!activeMenu);
   }
