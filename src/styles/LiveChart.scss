@@ -1,0 +1,87 @@
+@import "./abstracts/variables";
+@import "./abstracts/mixins";
+
+.live-chart {
+  @include column-center;
+  width: 100vw;
+  min-height: 100vh;
+  padding: 2rem;
+  overflow: hidden;
+
+  .search-and-header-container-chart {
+    width: 100%;
+
+    .live-chart-header {
+      padding: 6rem 0 4rem 0;
+
+      h2 {
+        font-size: 3rem;
+        color: #fff;
+      }
+    }
+
+    .search-chart-cryptocurrency {
+      width: 100%;
+      max-width: 450px;
+      margin-bottom: 2rem;
+      @include select;
+    }
+  }
+  .live-chart-element-wrapper {
+    height: 100%;
+    width: 100%;
+
+    .select-and-current-price-container {
+      @include row-y-center;
+      justify-content: space-between;
+
+      .time-period-select {
+        width: 100px;
+        @include select;
+      }
+
+      p {
+        font-size: 1.6rem;
+        color: #fff;
+        font-weight: 500;
+        margin-left: 1rem;
+      }
+    }
+
+    .live-chart-area {
+      @include row-y-center;
+      justify-content: center;
+      margin: 0 auto;
+      width: 90vw;
+      height: calc(100% - 49px);
+      padding: 2rem 0;
+    }
+  }
+}
+
+@media all and (min-width: 1024px) {
+  .live-chart {
+    align-items: flex-start;
+    padding: 2rem 4rem;
+
+    .search-and-header-container-chart {
+      @include row-y-center;
+      justify-content: space-between;
+
+      .search-chart-cryptocurrency {
+        max-width: 300px;
+        margin: 0;
+      }
+      .live-chart-header {
+        padding: 5rem 0;
+      }
+    }
+
+    .live-chart-element-wrapper {
+      .live-chart-area {
+        max-height: calc(100% - 47px - 20px);
+        width: calc(95vw - 80px - 300px);
+      }
+    }
+  }
+}

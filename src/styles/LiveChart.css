@@ -1,0 +1,155 @@
+.live-chart {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100vw;
+  min-height: 100vh;
+  padding: 2rem;
+  overflow: hidden;
+}
+
+.live-chart .search-and-header-container-chart {
+  width: 100%;
+}
+
+.live-chart .search-and-header-container-chart .live-chart-header {
+  padding: 6rem 0 4rem 0;
+}
+
+.live-chart .search-and-header-container-chart .live-chart-header h2 {
+  font-size: 3rem;
+  color: #fff;
+}
+
+.live-chart .search-and-header-container-chart .search-chart-cryptocurrency {
+  width: 100%;
+  max-width: 450px;
+  margin-bottom: 2rem;
+  font-size: 1.6rem;
+  color: #60687c;
+  border-radius: 16px;
+  border: none;
+  padding: 1.5rem;
+  background-color: #1b1b21;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-repeat: no-repeat;
+  background-size: 1rem auto;
+  background-position: right 1.5rem center;
+  background-image: url("../img/arrow-down-sign-to-navigate.png");
+  cursor: pointer;
+}
+
+.live-chart .search-and-header-container-chart .search-chart-cryptocurrency:focus-visible {
+  outline: none;
+}
+
+.live-chart .search-and-header-container-chart .search-chart-cryptocurrency option {
+  font-size: 1.6rem;
+}
+
+.live-chart .live-chart-element-wrapper {
+  height: 100%;
+  width: 100%;
+}
+
+.live-chart .live-chart-element-wrapper .select-and-current-price-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.live-chart .live-chart-element-wrapper .select-and-current-price-container .time-period-select {
+  width: 100px;
+  font-size: 1.6rem;
+  color: #60687c;
+  border-radius: 16px;
+  border: none;
+  padding: 1.5rem;
+  background-color: #1b1b21;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-repeat: no-repeat;
+  background-size: 1rem auto;
+  background-position: right 1.5rem center;
+  background-image: url("../img/arrow-down-sign-to-navigate.png");
+  cursor: pointer;
+}
+
+.live-chart .live-chart-element-wrapper .select-and-current-price-container .time-period-select:focus-visible {
+  outline: none;
+}
+
+.live-chart .live-chart-element-wrapper .select-and-current-price-container .time-period-select option {
+  font-size: 1.6rem;
+}
+
+.live-chart .live-chart-element-wrapper .select-and-current-price-container p {
+  font-size: 1.6rem;
+  color: #fff;
+  font-weight: 500;
+  margin-left: 1rem;
+}
+
+.live-chart .live-chart-element-wrapper .live-chart-area {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 0 auto;
+  width: 90vw;
+  height: calc(100% - 49px);
+  padding: 2rem 0;
+}
+
+@media all and (min-width: 1024px) {
+  .live-chart {
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    padding: 2rem 4rem;
+  }
+  .live-chart .search-and-header-container-chart {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  .live-chart .search-and-header-container-chart .search-chart-cryptocurrency {
+    max-width: 300px;
+    margin: 0;
+  }
+  .live-chart .search-and-header-container-chart .live-chart-header {
+    padding: 5rem 0;
+  }
+  .live-chart .live-chart-element-wrapper .live-chart-area {
+    max-height: calc(100% - 47px - 20px);
+    width: calc(95vw - 80px - 300px);
+  }
+}
+/*# sourceMappingURL=LiveChart.css.map */
