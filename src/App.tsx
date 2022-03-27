@@ -11,6 +11,9 @@ import "./styles/News.css";
 import Ranking from "./components/Ranking";
 import "./styles/Ranking.css";
 
+import LiveChart from "./components/LiveChart";
+import "./styles/LiveChart.css";
+
 function App() {
   const [width, setWidth] = useState<number>(window.innerWidth);
   const [activeUuid, setActiveUuid] = useState<string>("Qwsogvtv82FCd");
@@ -35,6 +38,12 @@ function App() {
         <Route
           path="/ranking"
           element={<Ranking setActiveUuid={setActiveUuid} />}
+        />
+        <Route
+          path="/live_chart"
+          element={
+            <LiveChart setActiveUuid={setActiveUuid} activeUuid={activeUuid} />
+          }
         />
       </Routes>
     </div>

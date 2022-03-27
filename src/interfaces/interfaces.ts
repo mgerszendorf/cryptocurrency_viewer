@@ -14,3 +14,11 @@ export interface INewsData {
   value: object[];
   _type: string;
 }
+
+export interface IPriceHistory {
+  data: {
+    change: string;
+    history: object[]
+  };
+  status: string;
+}
