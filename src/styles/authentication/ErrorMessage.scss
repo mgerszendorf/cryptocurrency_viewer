@@ -1,0 +1,27 @@
+@import "../abstracts/variables";
+
+.error-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  background-color: $light-green;
+  padding: 2rem 4rem;
+  border-radius: 16px;
+  font-weight: 500;
+  max-width: 90vw;
+  min-width: 200px;
+
+  p {
+    text-align: center;
+    font-size: 1.6rem;
+    color: #fff;
+  }
+}
+
+@media all and (min-width: 1024px) {
+  .error-message {
+    max-width: 350px;
+  }
+}
