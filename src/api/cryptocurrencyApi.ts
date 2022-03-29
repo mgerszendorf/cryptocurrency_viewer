@@ -16,3 +16,8 @@ export const getCryptoHistory = async (uuid: string, timePeriod: string) =>
   await fetch(
     `https://coinranking1.p.rapidapi.com/coin/${uuid}/history?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=${timePeriod}`, options
   ).then((response) => response.json().catch((err) => console.error(err)));
+
+export const getCoin = async (uuid: string) => 
+  await fetch(`https://coinranking1.p.rapidapi.com/coin/${uuid}?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=24h`, options)
+	.then(response => response.json())
+  .catch(err => console.error(err));
