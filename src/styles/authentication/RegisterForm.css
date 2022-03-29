@@ -1,0 +1,324 @@
+@-webkit-keyframes s-ripple {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  20% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@keyframes s-ripple {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  20% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@-webkit-keyframes s-ripple-dup {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  30% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  60% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@keyframes s-ripple-dup {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  30% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  60% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+.register-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 90vw;
+  max-width: 500px;
+  max-height: 90vh;
+  background-color: #111;
+  padding: 2rem 2rem 4rem 2rem;
+  border-radius: 16px;
+  z-index: 99;
+}
+
+@media all and (orientation: landscape) {
+  .register-form {
+    overflow-x: auto;
+  }
+}
+
+.register-form .register-form-close-btn {
+  position: relative;
+  width: 100%;
+  height: 3rem;
+}
+
+.register-form .register-form-close-btn svg {
+  font-size: 3rem;
+  color: #fff;
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+}
+
+.register-form .register-form-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.register-form .register-form-header h2 {
+  font-size: 2.4rem;
+  color: #fff;
+  margin-bottom: 3rem;
+}
+
+.register-form .registration-form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.register-form .registration-form input {
+  font-size: 1.6rem;
+  color: #60687c;
+  border-radius: 16px;
+  border: none;
+  padding: 1.5rem;
+  background-color: #1b1b21;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.register-form .registration-form input:focus-visible {
+  outline: none;
+}
+
+.register-form .registration-form input::-webkit-input-placeholder {
+  color: #60687c;
+}
+
+.register-form .registration-form input:-ms-input-placeholder {
+  color: #60687c;
+}
+
+.register-form .registration-form input::-ms-input-placeholder {
+  color: #60687c;
+}
+
+.register-form .registration-form input::placeholder {
+  color: #60687c;
+}
+
+.register-form .registration-form input:nth-last-of-type(1) {
+  margin-bottom: 2rem;
+}
+
+.register-form .registration-form button {
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 500;
+  background-color: #1fc2a0;
+  padding: 1.5rem 5rem;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.register-form .registration-form button:hover {
+  background-color: #2debc1;
+}
+
+.register-form .registration-form p {
+  font-size: 1.2rem;
+  color: #fff;
+  margin-top: 1.5rem;
+}
+
+.register-form .registration-form p span {
+  font-size: 1.2rem;
+  color: #1fc2a0;
+  cursor: pointer;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.register-form .registration-form p span:hover {
+  color: #2debc1;
+}
+
+.register-form .registration-form .register-form-checkbox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.register-form .registration-form .register-form-checkbox .control {
+  font-family: arial;
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 5px;
+  padding-top: 3px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #60687c;
+}
+
+.register-form .registration-form .register-form-checkbox .control input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+.register-form .registration-form .register-form-checkbox .control .control-indicator {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background: #1b1b21;
+  border: 0px solid #000000;
+  border-radius: 20px;
+}
+
+.register-form .registration-form .register-form-checkbox .control .control-indicator:after {
+  -webkit-box-sizing: unset;
+          box-sizing: unset;
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.register-form .registration-form .register-form-checkbox .control:hover input ~ control-indicator,
+.register-form .registration-form .register-form-checkbox .control input:focus ~ control-indicator {
+  background: #1b1b21;
+}
+
+.register-form .registration-form .register-form-checkbox .control input:checked ~ .control-indicator {
+  background: #1fc2a0;
+}
+
+.register-form .registration-form .register-form-checkbox .control:hover input:not([disabled]):checked ~ .control-indicator,
+.register-form .registration-form .register-form-checkbox .control input:checked:focus ~ .control-indicator {
+  background: #1fc2a0;
+}
+
+.register-form .registration-form .register-form-checkbox .control input:disabled ~ .control-indicator {
+  background: #1b1b21;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.register-form .registration-form .register-form-checkbox .control input:checked ~ .control-indicator:after {
+  display: block;
+}
+
+.register-form .registration-form .register-form-checkbox .control-checkbox .control-indicator::after {
+  left: 8px;
+  top: 4px;
+  width: 3px;
+  height: 8px;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+.register-form .registration-form .register-form-checkbox .control-checkbox .control-indicator::after input:disabled ~ .control-indicator:after {
+  border-color: #7b7b7b;
+}
+
+.register-form .registration-form .register-form-checkbox .control-checkbox .control-indicator::before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4.5rem;
+  height: 4.5rem;
+  margin-left: -1.3rem;
+  margin-top: -1.3rem;
+  background: #1fc2a0;
+  border-radius: 3rem;
+  opacity: 0.6;
+  z-index: 99999;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+}
+
+.register-form .registration-form .register-form-checkbox .control-checkbox input + .control-indicator::before {
+  -webkit-animation: s-ripple 250ms ease-out;
+          animation: s-ripple 250ms ease-out;
+}
+
+.register-form .registration-form .register-form-checkbox .control-checkbox input:checked + .control-indicator::before {
+  -webkit-animation-name: s-ripple-dup;
+          animation-name: s-ripple-dup;
+}
+/*# sourceMappingURL=RegisterForm.css.map */
