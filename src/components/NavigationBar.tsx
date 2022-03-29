@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { BiHomeAlt, BiNews } from "react-icons/bi";
 import {
@@ -13,9 +13,19 @@ import user from "../img/user.png";
 
 interface NavigationBarProps {
   width: number;
+  setActiveRegisterForm?: Dispatch<SetStateAction<boolean>>;
+  activeRegisterForm: boolean;
+  setActiveSignInForm?: Dispatch<SetStateAction<boolean>>;
+  activeSignInForm: boolean;
 }
 
-export const NavigationBar: React.FC<NavigationBarProps> = ({ width }) => {
+export const NavigationBar: React.FC<NavigationBarProps> = ({
+  width,
+  setActiveRegisterForm,
+  activeRegisterForm,
+  setActiveSignInForm,
+  activeSignInForm,
+}) => {
   const [activeMenu, setActiveMenu] = useState<boolean>(false);
 
   // Disable scroll on body
@@ -27,6 +37,20 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({ width }) => {
 
   function handleMenuIcon() {
     setActiveMenu(!activeMenu);
+  }
+
+  function handleSignInButton() {
+    setActiveMenu(false);
+    if (setActiveSignInForm !== undefined)
+      setActiveSignInForm(!activeSignInForm);
+    if (setActiveRegisterForm !== undefined) setActiveRegisterForm(false);
+  }
+
+  function handleCreateAccountButton() {
+    setActiveMenu(false);
+    if (setActiveRegisterForm !== undefined)
+      setActiveRegisterForm(!activeRegisterForm);
+    if (setActiveSignInForm !== undefined) setActiveSignInForm(false);
   }
 
   // Style for the active menu link
@@ -153,11 +177,14 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({ width }) => {
           </li>
         </ul>
         <div className="button-authentication-wrapper">
-          <button>
+          <button onClick={() => handleSignInButton()}>
             <GoSignIn /> Sign in
           </button>
           <p>
-            Not registered yet? <span>Create an Account</span>
+            Not registered yet?{" "}
+            <span onClick={() => handleCreateAccountButton()}>
+              Create an Account
+            </span>
           </p>
         </div>
       </div>
