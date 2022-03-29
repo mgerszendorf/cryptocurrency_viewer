@@ -10,8 +10,15 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import { getCryptoHistory, getCryptoList } from "../api/cryptocurrencyApi";
-import { IPriceHistory, ICryptoList } from "../interfaces/interfaces";
+import {
+  getCryptoHistory,
+  getCryptoList,
+  getCoin,
+} from "../api/cryptocurrencyApi";
+import { ICryptoListResponse } from "../interfaces/ICryptoListResponse";
+import { ICryptoHistoryResponse } from "../interfaces/ICryptoHistoryResponse";
+import { ICoinResponse } from "../interfaces/ICoinResponse";
+import Loader from "./Loader";
 
 ChartJS.register(
   CategoryScale,
@@ -34,8 +41,9 @@ export const LiveChart: React.FC<LiveChartProps> = ({
 }) => {
   const timePeriodsArr = ["3h", "24h", "7d", "30d", "3m", "1y", "3y", "5y"];
   const [timePeriod, setTimePeriod] = useState<string>("3h");
-  const [priceHistory, setPriceHistory] = useState<any>();
-  const [cryptoList, setCryptoList] = useState<ICryptoList>();
+  const [priceHistory, setPriceHistory] = useState<ICryptoHistoryResponse>();
+  const [cryptoList, setCryptoList] = useState<ICryptoListResponse>();
+  const [activeCoin, setActiveCoin] = useState<ICoinResponse>();
   const price = [];
   const timestamp = [];
 
@@ -49,33 +57,41 @@ export const LiveChart: React.FC<LiveChartProps> = ({
       await getCryptoList().then((data) => {
         setCryptoList(data);
       });
+
+      await getCoin(activeUuid).then((data) => {
+        setActiveCoin(data);
+      });
     }
 
     fetchData();
   }, [setPriceHistory, activeUuid, timePeriod]);
+
+  console.log(activeCoin);
 
   function setActiveCryptocurrency(uuid: string) {
     if (setActiveUuid !== undefined) setActiveUuid(uuid);
   }
 
   // Adding elements from API to price and timestamp array
-  for (let i = 0; i < priceHistory?.data?.history?.length; i++) {
-    price.unshift(priceHistory?.data?.history[i].price);
-  }
+  if (priceHistory?.data !== undefined) {
+    for (let i = 0; i < priceHistory?.data?.history?.length; i++) {
+      price.unshift(priceHistory?.data?.history[i].price);
+    }
 
-  for (let i = 0; i < priceHistory?.data?.history?.length; i++) {
-    if (timePeriod === "3h" || timePeriod === "24h") {
-      timestamp.unshift(
-        new Date(
-          priceHistory?.data?.history[i].timestamp * 1000
-        ).toLocaleTimeString()
-      );
-    } else {
-      timestamp.unshift(
-        new Date(
-          priceHistory?.data?.history[i].timestamp * 1000
-        ).toLocaleDateString()
-      );
+    for (let i = 0; i < priceHistory?.data?.history?.length; i++) {
+      if (timePeriod === "3h" || timePeriod === "24h") {
+        timestamp.unshift(
+          new Date(
+            priceHistory?.data?.history[i].timestamp * 1000
+          ).toLocaleTimeString()
+        );
+      } else {
+        timestamp.unshift(
+          new Date(
+            priceHistory?.data?.history[i].timestamp * 1000
+          ).toLocaleDateString()
+        );
+      }
     }
   }
 
@@ -129,6 +145,9 @@ export const LiveChart: React.FC<LiveChartProps> = ({
     ],
   };
 
+  if (!priceHistory) return <Loader />;
+  if (!cryptoList) return <Loader />;
+
   return (
     <section className="live-chart">
       <div className="search-and-header-container-chart">
@@ -158,7 +177,20 @@ export const LiveChart: React.FC<LiveChartProps> = ({
               </option>
             ))}
           </select>
-          <p>Current price: $46,7k</p>
+          <p>
+            {activeCoin?.data !== undefined &&
+            parseInt(activeCoin?.data?.coin?.price) < 1
+              ? `Current price: ${
+                  Math.round(
+                    parseInt(activeCoin?.data?.coin?.price) * 1000000
+                  ) / 1000000
+                }$`
+              : `Current price: ${
+                  Math.round(
+                    parseInt(activeCoin?.data?.coin?.price as string) * 10
+                  ) / 10
+                }$`}
+          </p>
         </div>
         <div className="live-chart-area">
           <Line

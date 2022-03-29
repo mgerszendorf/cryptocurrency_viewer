@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import moment from "moment";
-import { INewsData, ICryptoList } from "../interfaces/interfaces";
+import { INewsResponse } from "../interfaces/INewsResponse";
+import { ICryptoListResponse } from "../interfaces/ICryptoListResponse";
 import noImage from "../img/no_photo.png";
 
 import { getNews } from "../api/newsApi";
@@ -10,8 +11,8 @@ import Loader from "./Loader";
 
 function News() {
   const [newsCategory, setNewsCategory] = useState<string>("Bitcoin");
-  const [newsData, setNewsData] = useState<INewsData>();
-  const [cryptoList, setCryptoList] = useState<ICryptoList>();
+  const [newsData, setNewsData] = useState<INewsResponse>();
+  const [cryptoList, setCryptoList] = useState<ICryptoListResponse>();
 
   //Fetching data
   useEffect(() => {
