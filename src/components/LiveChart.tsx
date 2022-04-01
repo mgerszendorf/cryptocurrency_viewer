@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
+import axios from "axios";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,11 +11,6 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import {
-  getCryptoHistory,
-  getCryptoList,
-  getCoin,
-} from "../api/cryptocurrencyApi";
 import { ICryptoListResponse } from "../interfaces/ICryptoListResponse";
 import { ICryptoHistoryResponse } from "../interfaces/ICryptoHistoryResponse";
 import { ICoinResponse } from "../interfaces/ICoinResponse";
@@ -50,23 +46,26 @@ export const LiveChart: React.FC<LiveChartProps> = ({
   //Fetching data
   useEffect(() => {
     async function fetchData() {
-      await getCryptoHistory(activeUuid, timePeriod).then((data) => {
-        setPriceHistory(data);
-      });
+      await axios
+        .post("http://localhost:8000/api/get_crypto_history", {
+          activeUuid,
+          timePeriod,
+        })
+        .then((res: any) => setPriceHistory(res.data));
 
-      await getCryptoList().then((data) => {
-        setCryptoList(data);
-      });
+      await axios
+        .get("http://localhost:8000/api/get_crypto_list")
+        .then((res: any) => setCryptoList(res.data));
 
-      await getCoin(activeUuid).then((data) => {
-        setActiveCoin(data);
-      });
+      await axios
+        .post("http://localhost:8000/api/get_coin", {
+          activeUuid,
+        })
+        .then((res: any) => setActiveCoin(res.data));
     }
 
     fetchData();
   }, [setPriceHistory, activeUuid, timePeriod]);
-
-  console.log(activeCoin);
 
   function setActiveCryptocurrency(uuid: string) {
     if (setActiveUuid !== undefined) setActiveUuid(uuid);

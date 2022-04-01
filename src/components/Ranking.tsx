@@ -1,8 +1,7 @@
 import { Dispatch, SetStateAction, useState, useEffect } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import { RiArrowDropDownLine, RiStarLine } from "react-icons/ri";
-
-import { getCryptoList } from "../api/cryptocurrencyApi";
 
 import { ICryptoListResponse } from "../interfaces/ICryptoListResponse";
 
@@ -19,12 +18,12 @@ export const Ranking: React.FC<RankingProps> = ({ setActiveUuid }) => {
   const [favoriteCryptocurrenciesArr, setFavoriteCryptocurrenciesArr] =
     useState<string[]>([]);
 
-  //Fetching data
+  // Fetching data
   useEffect(() => {
     async function fetchData() {
-      await getCryptoList().then((currency) => {
-        setCryptoList(currency);
-      });
+      await axios
+        .get("http://localhost:8000/api/get_crypto_list")
+        .then((res: any) => setCryptoList(res.data));
     }
     fetchData();
   }, [setCryptoList]);
@@ -46,8 +45,6 @@ export const Ranking: React.FC<RankingProps> = ({ setActiveUuid }) => {
       uuid,
     ]);
   }
-
-  console.log(favoriteCryptocurrenciesArr);
 
   if (!cryptoList) return <Loader />;
 

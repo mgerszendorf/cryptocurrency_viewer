@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 import moment from "moment";
 import { INewsResponse } from "../interfaces/INewsResponse";
 import { ICryptoListResponse } from "../interfaces/ICryptoListResponse";
 import noImage from "../img/no_photo.png";
-
-import { getNews } from "../api/newsApi";
-import { getCryptoList } from "../api/cryptocurrencyApi";
 
 import Loader from "./Loader";
 
@@ -17,13 +15,15 @@ function News() {
   //Fetching data
   useEffect(() => {
     async function fetchData() {
-      await getNews(newsCategory, 100).then((data) => {
-        setNewsData(data);
-      });
+      await axios
+        .post("http://localhost:8000/api/get_news", {
+          newsCategory,
+        })
+        .then((res: any) => setNewsData(res.data));
 
-      await getCryptoList().then((data) => {
-        setCryptoList(data);
-      });
+      await axios
+        .get("http://localhost:8000/api/get_crypto_list")
+        .then((res: any) => setCryptoList(res.data));
     }
     fetchData();
   }, [setNewsData, setCryptoList, newsCategory]);
