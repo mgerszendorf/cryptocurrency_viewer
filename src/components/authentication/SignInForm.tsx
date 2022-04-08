@@ -1,4 +1,11 @@
-import React, { useState, Dispatch, SetStateAction } from "react";
+import React, {
+  useState,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+  useContext,
+} from "react";
+import AuthContext from "../../context/AuthContext";
 import { GoSignIn } from "react-icons/go";
 import { MdClose } from "react-icons/md";
 
@@ -7,6 +14,7 @@ interface SignInFormProps {
   setActiveRegisterForm?: Dispatch<SetStateAction<boolean>>;
   handleErrorMessage(txt: string): void;
   setToken?: Dispatch<SetStateAction<string>>;
+  token: string;
 }
 
 export const SignInForm: React.FC<SignInFormProps> = ({
@@ -14,6 +22,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
   setActiveRegisterForm,
   handleErrorMessage,
   setToken,
+  token,
 }) => {
   const [signInFormData, setSignInFormData] = useState({
     email: "",
@@ -37,24 +46,26 @@ export const SignInForm: React.FC<SignInFormProps> = ({
     }
   }
 
-  async function sendSignInFormData(e: any) {
-    e.preventDefault();
+  // async function sendSignInFormData(e: any) {
+  //   e.preventDefault();
 
-    const result = await fetch("http://localhost:8000/api/users/sign_in", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(signInFormData),
-    }).then((res) => res.json());
+  //   const result = await fetch("http://localhost:8000/api/users/sign_in", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-type": "application/json",
+  //     },
+  //     body: JSON.stringify(signInFormData),
+  //   }).then((res) => res.json());
 
-    if (result.status === "ok") {
-      handleSetToken(result.data);
-      localStorage.setItem("token", result.data);
-    } else {
-      handleErrorMessage(result.error);
-    }
-  }
+  //   if (result.status === 200) {
+  //     handleSetToken(result.data);
+  //     localStorage.setItem("authTokens", result.data);
+  //   } else {
+  //     handleErrorMessage(result.error);
+  //   }
+  // }
+
+  let { loginUser } = useContext(AuthContext);
 
   return (
     <section className="sign-in">
@@ -65,10 +76,11 @@ export const SignInForm: React.FC<SignInFormProps> = ({
         <h2 className="sign-in-welcome-txt-first">Hello!</h2>
         <h2 className="sign-in-welcome-txt-second">Sign into Your account</h2>
       </div>
-      <form className="sign-in-form" onSubmit={(e) => sendSignInFormData(e)}>
+      <form className="sign-in-form" onSubmit={(e) => loginUser(e)}>
         <input
           required
           type="email"
+          name="email"
           placeholder="Email"
           onFocus={(e) => (e.target.placeholder = "")}
           onBlur={(e) => (e.target.placeholder = "Email")}
@@ -82,6 +94,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
         <input
           required
           type="password"
+          name="password"
           placeholder="Password"
           onFocus={(e) => (e.target.placeholder = "")}
           onBlur={(e) => (e.target.placeholder = "Password")}

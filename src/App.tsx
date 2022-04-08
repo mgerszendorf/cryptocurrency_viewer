@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
 import "./styles/App.css";
 
 import NavigationBar from "./components/NavigationBar";
@@ -31,6 +32,7 @@ function App() {
   const [activeSignInForm, setActiveSignInForm] = useState<boolean>(false);
   const [activeErrorMessage, setActiveErrorMessage] = useState<boolean>(false);
   const [errorMessageTxt, setErrorMessageTxt] = useState<string>();
+  const [token, setToken] = useState<string>("");
 
   function handleErrorMessage(txt: string) {
     setErrorMessageTxt(txt);
@@ -54,42 +56,91 @@ function App() {
 
   return (
     <div className="App">
-      {activeErrorMessage && <ErrorMessage errorMessageTxt={errorMessageTxt} />}
-      {activeSignInForm ? (
-        <SignInForm
-          setActiveSignInForm={setActiveSignInForm}
+      <AuthProvider>
+        {activeErrorMessage && (
+          <ErrorMessage errorMessageTxt={errorMessageTxt} />
+        )}
+        {activeSignInForm && (
+          <SignInForm
+            setActiveSignInForm={setActiveSignInForm}
+            setActiveRegisterForm={setActiveRegisterForm}
+            handleErrorMessage={handleErrorMessage}
+            setToken={setToken}
+            token={token}
+          />
+        )}
+        {activeRegisterForm && (
+          <RegisterForm
+            setActiveSignInForm={setActiveSignInForm}
+            setActiveRegisterForm={setActiveRegisterForm}
+            handleErrorMessage={handleErrorMessage}
+          />
+        )}
+        <NavigationBar
+          width={width}
           setActiveRegisterForm={setActiveRegisterForm}
-          handleErrorMessage={handleErrorMessage}
-        />
-      ) : null}
-      {activeRegisterForm ? (
-        <RegisterForm
+          activeRegisterForm={activeRegisterForm}
           setActiveSignInForm={setActiveSignInForm}
-          setActiveRegisterForm={setActiveRegisterForm}
-          handleErrorMessage={handleErrorMessage}
+          activeSignInForm={activeSignInForm}
         />
-      ) : null}
-      <NavigationBar
-        width={width}
-        setActiveRegisterForm={setActiveRegisterForm}
-        activeRegisterForm={activeRegisterForm}
-        setActiveSignInForm={setActiveSignInForm}
-        activeSignInForm={activeSignInForm}
-      />
-      <Routes>
-        <Route path="/news" element={<News />} />
-        <Route
-          path="/ranking"
-          element={<Ranking setActiveUuid={setActiveUuid} />}
-        />
-        <Route
-          path="/live_chart"
-          element={
-            <LiveChart setActiveUuid={setActiveUuid} activeUuid={activeUuid} />
-          }
-        />
-      </Routes>
+        <Routes>
+          <Route path="/news" element={<News />} />
+          <Route
+            path="/ranking"
+            element={<Ranking setActiveUuid={setActiveUuid} />}
+          />
+          <Route
+            path="/live_chart"
+            element={
+              <LiveChart
+                setActiveUuid={setActiveUuid}
+                activeUuid={activeUuid}
+              />
+            }
+          />
+        </Routes>
+      </AuthProvider>
     </div>
+
+    // <div className="App">
+    //   {activeErrorMessage && <ErrorMessage errorMessageTxt={errorMessageTxt} />}
+    //   {activeSignInForm && (
+    //     <SignInForm
+    //       setActiveSignInForm={setActiveSignInForm}
+    //       setActiveRegisterForm={setActiveRegisterForm}
+    //       handleErrorMessage={handleErrorMessage}
+    //       setToken={setToken}
+    //       token={token}
+    //     />
+    //   )}
+    //   {activeRegisterForm && (
+    //     <RegisterForm
+    //       setActiveSignInForm={setActiveSignInForm}
+    //       setActiveRegisterForm={setActiveRegisterForm}
+    //       handleErrorMessage={handleErrorMessage}
+    //     />
+    //   )}
+    //   <NavigationBar
+    //     width={width}
+    //     setActiveRegisterForm={setActiveRegisterForm}
+    //     activeRegisterForm={activeRegisterForm}
+    //     setActiveSignInForm={setActiveSignInForm}
+    //     activeSignInForm={activeSignInForm}
+    //   />
+    //   <Routes>
+    //     <Route path="/news" element={<News />} />
+    //     <Route
+    //       path="/ranking"
+    //       element={<Ranking setActiveUuid={setActiveUuid} />}
+    //     />
+    //     <Route
+    //       path="/live_chart"
+    //       element={
+    //         <LiveChart setActiveUuid={setActiveUuid} activeUuid={activeUuid} />
+    //       }
+    //     />
+    //   </Routes>
+    // </div>
   );
 }
 
