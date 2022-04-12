@@ -24,6 +24,9 @@ import "./styles/authentication/SignInForm.css";
 import ErrorMessage from "./components/authentication/ErrorMessage";
 import "./styles/authentication/ErrorMessage.css";
 
+import Statistics from "./components/Statistics";
+import "./styles/Statistics.css";
+
 function App() {
   const [width, setWidth] = useState<number>(window.innerWidth);
   const [activeUuid, setActiveUuid] = useState<string>("Qwsogvtv82FCd");
@@ -98,49 +101,18 @@ function App() {
               />
             }
           />
+          <Route
+            path="statistics"
+            element={
+              <Statistics
+                setActiveUuid={setActiveUuid}
+                activeUuid={activeUuid}
+              />
+            }
+          />
         </Routes>
       </AuthProvider>
     </div>
-
-    // <div className="App">
-    //   {activeErrorMessage && <ErrorMessage errorMessageTxt={errorMessageTxt} />}
-    //   {activeSignInForm && (
-    //     <SignInForm
-    //       setActiveSignInForm={setActiveSignInForm}
-    //       setActiveRegisterForm={setActiveRegisterForm}
-    //       handleErrorMessage={handleErrorMessage}
-    //       setToken={setToken}
-    //       token={token}
-    //     />
-    //   )}
-    //   {activeRegisterForm && (
-    //     <RegisterForm
-    //       setActiveSignInForm={setActiveSignInForm}
-    //       setActiveRegisterForm={setActiveRegisterForm}
-    //       handleErrorMessage={handleErrorMessage}
-    //     />
-    //   )}
-    //   <NavigationBar
-    //     width={width}
-    //     setActiveRegisterForm={setActiveRegisterForm}
-    //     activeRegisterForm={activeRegisterForm}
-    //     setActiveSignInForm={setActiveSignInForm}
-    //     activeSignInForm={activeSignInForm}
-    //   />
-    //   <Routes>
-    //     <Route path="/news" element={<News />} />
-    //     <Route
-    //       path="/ranking"
-    //       element={<Ranking setActiveUuid={setActiveUuid} />}
-    //     />
-    //     <Route
-    //       path="/live_chart"
-    //       element={
-    //         <LiveChart setActiveUuid={setActiveUuid} activeUuid={activeUuid} />
-    //       }
-    //     />
-    //   </Routes>
-    // </div>
   );
 }
 
