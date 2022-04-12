@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import moment from "moment";
-import { INewsResponse } from "../interfaces/INewsResponse";
-import { ICryptoListResponse } from "../interfaces/ICryptoListResponse";
+import { INewsResponse, IValue } from "../interfaces/INewsResponse";
+import { ICryptoListResponse, ICoin } from "../interfaces/ICryptoListResponse";
 import noImage from "../img/no_photo.png";
 
 import Loader from "./Loader";
@@ -42,7 +42,7 @@ function News() {
           className="search-cryptocurrency"
           onChange={(e) => [setNewsCategory(e.target.value)]}
         >
-          {cryptoList?.data?.coins?.map((currency: any) => (
+          {cryptoList?.data?.coins?.map((currency: ICoin) => (
             <option key={currency?.uuid} value={currency?.name}>
               {currency?.name}
             </option>
@@ -50,7 +50,7 @@ function News() {
         </select>
       </div>
       <div className="news-element-wrapper">
-        {newsData?.value.map((news: any) => (
+        {newsData?.value.map((news: IValue) => (
           <div className="news-element" key={news.url}>
             <a href={news.url} target="_blank" rel="noreferrer">
               <img
