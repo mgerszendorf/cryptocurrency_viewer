@@ -1,0 +1,661 @@
+.statistics {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100vw;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.statistics .statistics-header-wrapper .statistics-header {
+  padding: 6rem 0 3rem 0;
+}
+
+.statistics .statistics-header-wrapper .statistics-header h2 {
+  text-align: center;
+  font-size: 3rem;
+  color: #fff;
+}
+
+.statistics .statistics-header-wrapper .select-cryptocurrency {
+  font-size: 1.6rem;
+  color: #60687c;
+  border-radius: 16px;
+  border: none;
+  padding: 1.5rem;
+  background-color: #1b1b21;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-repeat: no-repeat;
+  background-size: 1rem auto;
+  background-position: right 1.5rem center;
+  background-image: url("../img/arrow-down-sign-to-navigate.png");
+  cursor: pointer;
+  width: 90vw;
+  max-width: 450px;
+  margin: 2rem 0 4rem 0;
+}
+
+.statistics .statistics-header-wrapper .select-cryptocurrency:focus-visible {
+  outline: none;
+}
+
+.statistics .statistics-header-wrapper .select-cryptocurrency option {
+  font-size: 1.6rem;
+}
+
+.statistics-main-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.statistics-main-container .price {
+  background-color: #1b1b21;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90vw;
+  max-width: 450px;
+  margin-bottom: 2rem;
+}
+
+.statistics-main-container .price div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.statistics-main-container .price div p {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #fff;
+  margin-left: 1rem;
+}
+
+@media all and (min-width: 1024px) {
+  .statistics-main-container .price div p {
+    font-size: 1.6rem;
+  }
+}
+
+@media all and (min-width: 1240px) {
+  .statistics-main-container .price div p {
+    font-size: 2rem;
+  }
+}
+
+.statistics-main-container .price div img {
+  max-width: 32px;
+  border-radius: 50%;
+}
+
+.statistics-main-container .price .price-txt {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #fff;
+  margin: 4rem 0;
+  overflow-wrap: anywhere;
+}
+
+@media all and (min-width: 1024px) {
+  .statistics-main-container .price .price-txt {
+    font-size: 2rem;
+  }
+}
+
+@media all and (min-width: 1240px) {
+  .statistics-main-container .price .price-txt {
+    font-size: 2.5rem;
+  }
+}
+
+.statistics-main-container .height24h {
+  background-color: #1b1b21;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90vw;
+  max-width: 450px;
+  margin-bottom: 2rem;
+}
+
+.statistics-main-container .height24h .height24h-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.statistics-main-container .height24h .height24h-header svg {
+  color: #1fc2a0;
+  font-size: 2.5rem;
+}
+
+.statistics-main-container .height24h .height24h-header p {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #fff;
+  margin-left: 1rem;
+}
+
+@media all and (min-width: 1024px) {
+  .statistics-main-container .height24h .height24h-header p {
+    font-size: 1.6rem;
+  }
+}
+
+@media all and (min-width: 1240px) {
+  .statistics-main-container .height24h .height24h-header p {
+    font-size: 2rem;
+  }
+}
+
+.statistics-main-container .height24h .height24h-value {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #fff;
+  margin: 4rem 0;
+  overflow-wrap: anywhere;
+}
+
+@media all and (min-width: 1024px) {
+  .statistics-main-container .height24h .height24h-value {
+    font-size: 2rem;
+  }
+}
+
+@media all and (min-width: 1240px) {
+  .statistics-main-container .height24h .height24h-value {
+    font-size: 2.5rem;
+  }
+}
+
+.statistics-main-container .low24h {
+  background-color: #1b1b21;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90vw;
+  max-width: 450px;
+  margin-bottom: 2rem;
+}
+
+.statistics-main-container .low24h .low24h-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.statistics-main-container .low24h .low24h-header svg {
+  color: #ff3572;
+  font-size: 2.5rem;
+}
+
+.statistics-main-container .low24h .low24h-header p {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #fff;
+  margin-left: 1rem;
+}
+
+@media all and (min-width: 1024px) {
+  .statistics-main-container .low24h .low24h-header p {
+    font-size: 1.6rem;
+  }
+}
+
+@media all and (min-width: 1240px) {
+  .statistics-main-container .low24h .low24h-header p {
+    font-size: 2rem;
+  }
+}
+
+.statistics-main-container .low24h .low24h-value {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #fff;
+  margin: 4rem 0;
+  overflow-wrap: anywhere;
+}
+
+@media all and (min-width: 1024px) {
+  .statistics-main-container .low24h .low24h-value {
+    font-size: 2rem;
+  }
+}
+
+@media all and (min-width: 1240px) {
+  .statistics-main-container .low24h .low24h-value {
+    font-size: 2.5rem;
+  }
+}
+
+.statistics-main-container .rank {
+  background-color: #1b1b21;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90vw;
+  max-width: 450px;
+  margin-bottom: 2rem;
+}
+
+.statistics-main-container .rank .rank-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.statistics-main-container .rank .rank-header svg {
+  color: #f0e130;
+  font-size: 2.5rem;
+}
+
+.statistics-main-container .rank .rank-header p {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #fff;
+  margin-left: 1rem;
+}
+
+@media all and (min-width: 1024px) {
+  .statistics-main-container .rank .rank-header p {
+    font-size: 1.6rem;
+  }
+}
+
+@media all and (min-width: 1240px) {
+  .statistics-main-container .rank .rank-header p {
+    font-size: 2rem;
+  }
+}
+
+.statistics-main-container .rank .rank-value {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #fff;
+  margin: 4rem 0;
+  margin: 3rem 0;
+}
+
+@media all and (min-width: 1024px) {
+  .statistics-main-container .rank .rank-value {
+    font-size: 2rem;
+  }
+}
+
+@media all and (min-width: 1240px) {
+  .statistics-main-container .rank .rank-value {
+    font-size: 2.5rem;
+  }
+}
+
+.statistics-main-container .bottom-area-container .live-chart-statistics-container {
+  background-color: #1b1b21;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90vw;
+  max-width: 450px;
+  margin-bottom: 2rem;
+}
+
+.statistics-main-container .bottom-area-container .live-chart-statistics-container .live-chart-statistics-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.statistics-main-container .bottom-area-container .live-chart-statistics-container .live-chart-statistics-header svg {
+  font-size: 2rem;
+  color: #1fc2a0;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.statistics-main-container .bottom-area-container .live-chart-statistics-container .live-chart-statistics-header svg:hover {
+  color: #2debc1;
+}
+
+.statistics-main-container .bottom-area-container .live-chart-statistics-container .live-chart-statistics-header p {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+.statistics-main-container .bottom-area-container .live-chart-statistics-container .live-chart-statistics {
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.statistics-main-container .bottom-area-container .volume-and-percent-change .volume {
+  background-color: #1b1b21;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90vw;
+  max-width: 450px;
+  margin-bottom: 2rem;
+}
+
+.statistics-main-container .bottom-area-container .volume-and-percent-change .volume div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.statistics-main-container .bottom-area-container .volume-and-percent-change .volume div .volume-header {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+.statistics-main-container .bottom-area-container .volume-and-percent-change .volume .volume-value {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #fff;
+  margin: 4rem 0;
+  overflow-wrap: anywhere;
+}
+
+@media all and (min-width: 1024px) {
+  .statistics-main-container .bottom-area-container .volume-and-percent-change .volume .volume-value {
+    font-size: 2rem;
+  }
+}
+
+@media all and (min-width: 1240px) {
+  .statistics-main-container .bottom-area-container .volume-and-percent-change .volume .volume-value {
+    font-size: 2.5rem;
+  }
+}
+
+.statistics-main-container .bottom-area-container .volume-and-percent-change .percent-change {
+  background-color: #1b1b21;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90vw;
+  max-width: 450px;
+  margin-bottom: 2rem;
+}
+
+.statistics-main-container .bottom-area-container .volume-and-percent-change .percent-change div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.statistics-main-container .bottom-area-container .volume-and-percent-change .percent-change div .percent-change-header {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+.statistics-main-container .bottom-area-container .volume-and-percent-change .percent-change div .select-percent-change {
+  font-size: 1.6rem;
+  color: #60687c;
+  border-radius: 16px;
+  border: none;
+  padding: 1.5rem;
+  background-color: #1b1b21;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-repeat: no-repeat;
+  background-size: 1rem auto;
+  background-position: right 1.5rem center;
+  background-image: url("../img/arrow-down-sign-to-navigate.png");
+  cursor: pointer;
+  width: 80px;
+  background-color: #17171a;
+}
+
+.statistics-main-container .bottom-area-container .volume-and-percent-change .percent-change div .select-percent-change:focus-visible {
+  outline: none;
+}
+
+.statistics-main-container .bottom-area-container .volume-and-percent-change .percent-change div .select-percent-change option {
+  font-size: 1.6rem;
+}
+
+.statistics-main-container .bottom-area-container .volume-and-percent-change .percent-change .percent-chanege-value {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #fff;
+  margin: 4rem 0;
+}
+
+@media all and (min-width: 1024px) {
+  .statistics-main-container .bottom-area-container .volume-and-percent-change .percent-change .percent-chanege-value {
+    font-size: 2rem;
+  }
+}
+
+@media all and (min-width: 1240px) {
+  .statistics-main-container .bottom-area-container .volume-and-percent-change .percent-change .percent-chanege-value {
+    font-size: 2.5rem;
+  }
+}
+
+@media all and (min-width: 1024px) {
+  .statistics {
+    padding: 2rem 4rem;
+  }
+  .statistics .statistics-header-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: 100%;
+    margin: 5rem 0;
+  }
+  .statistics .statistics-header-wrapper .statistics-header {
+    padding: 0;
+  }
+  .statistics .statistics-header-wrapper .select-cryptocurrency {
+    margin: 0;
+    max-width: 300px;
+  }
+  .statistics .statistics-main-container {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+  }
+  .statistics .statistics-main-container .price {
+    width: 23.5%;
+    height: 20vh;
+    min-height: 144px;
+  }
+  .statistics .statistics-main-container .price .price-txt {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    height: calc(100% - 32px);
+    margin: 0;
+  }
+  .statistics .statistics-main-container .height24h {
+    width: 23.5%;
+    height: 20vh;
+    min-height: 144px;
+  }
+  .statistics .statistics-main-container .height24h .height24h-value {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    height: calc(100% - 25px);
+    margin: 0;
+  }
+  .statistics .statistics-main-container .low24h {
+    width: 23.5%;
+    height: 20vh;
+    min-height: 144px;
+  }
+  .statistics .statistics-main-container .low24h .low24h-value {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    height: calc(100% - 25px);
+    margin: 0;
+  }
+  .statistics .statistics-main-container .rank {
+    width: 23.5%;
+    height: 20vh;
+    min-height: 144px;
+  }
+  .statistics .statistics-main-container .rank .rank-value {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    height: calc(100% - 25px);
+    margin: 0;
+  }
+  .statistics .statistics-main-container .bottom-area-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+    width: 100%;
+    height: calc(55vh - 50px);
+  }
+  .statistics .statistics-main-container .bottom-area-container .live-chart-statistics-container {
+    width: 30vw;
+    max-width: none;
+  }
+  .statistics .statistics-main-container .bottom-area-container .volume-and-percent-change .volume {
+    max-width: 250px;
+  }
+  .statistics .statistics-main-container .bottom-area-container .volume-and-percent-change .volume .volume-value {
+    margin: 1rem 0;
+  }
+  .statistics .statistics-main-container .bottom-area-container .percent-change {
+    max-width: 250px;
+  }
+  .statistics .statistics-main-container .bottom-area-container .percent-change div .percent-change-header {
+    margin-right: 1rem;
+  }
+  .statistics .statistics-main-container .bottom-area-container .percent-change .percent-chanege-value {
+    margin: 1rem 0;
+  }
+}
+
+@media all and (min-width: 1350px) {
+  .statistics .statistics-main-container .bottom-area-container .live-chart-statistics-container {
+    width: 40vw;
+    max-width: 600px;
+  }
+  .statistics .statistics-main-container .bottom-area-container .volume-and-percent-change .volume {
+    max-width: 350px;
+  }
+  .statistics .statistics-main-container .bottom-area-container .volume-and-percent-change .volume .volume-value {
+    margin: 2.5rem 0;
+  }
+  .statistics .statistics-main-container .bottom-area-container .percent-change {
+    max-width: 350px;
+  }
+  .statistics .statistics-main-container .bottom-area-container .percent-change .percent-chanege-value {
+    margin: 2.5rem 0;
+  }
+}
+/*# sourceMappingURL=Statistics.css.map */
