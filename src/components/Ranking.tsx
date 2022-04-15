@@ -1,22 +1,26 @@
-import { Dispatch, SetStateAction, useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { RiArrowDropDownLine, RiStarLine } from "react-icons/ri";
-
-import { ICryptoListResponse } from "../interfaces/ICryptoListResponse";
+import { ICryptoListResponse, ICoin } from "../interfaces/ICryptoListResponse";
 
 import Loader from "./Loader";
+import AuthContext from "../context/AuthContext";
+import SelectCryptocurrencyContext from "../context/SelectCryptocurrencyContext";
 
-interface RankingProps {
-  setActiveUuid?: Dispatch<SetStateAction<string>>;
-}
-
-export const Ranking: React.FC<RankingProps> = ({ setActiveUuid }) => {
+export const Ranking: React.FC = () => {
   // button state to sort
   const [rankingToggle, setRankingToggle] = useState<boolean>(true);
   const [cryptoList, setCryptoList] = useState<ICryptoListResponse>();
-  const [favoriteCryptocurrenciesArr, setFavoriteCryptocurrenciesArr] =
-    useState<string[]>([]);
+  const [updateFavouriteCryptocurrencies, setUpdateFavouriteCryptocurrencies] =
+    useState<boolean>(false);
+  const [favoriteCryptocurrencies, setFavoriteCryptocurrencies] = useState<any>(
+    []
+  );
+  const { user } = useContext(AuthContext);
+  const { handleSelectCryptocurrency } = useContext(
+    SelectCryptocurrencyContext
+  );
 
   // Fetching data
   useEffect(() => {
@@ -35,16 +39,56 @@ export const Ranking: React.FC<RankingProps> = ({ setActiveUuid }) => {
     setCryptoList(array);
   }
 
-  function setActiveCryptocurrency(uuid: string) {
-    if (setActiveUuid !== undefined) setActiveUuid(uuid);
+  async function updateFavoriteCryptocurrencies(
+    uuid: string,
+    change: string,
+    iconUrl: string,
+    name: string,
+    price: string,
+    rank: number,
+    symbol: string
+  ) {
+    let coinData = {
+      uuid,
+      change,
+      iconUrl,
+      name,
+      price,
+      rank,
+      symbol,
+    };
+
+    await fetch("http://localhost:8000/api/update_favorite_cryptocurrencies", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        email: user.email,
+        uuid: uuid,
+        coinData,
+      }),
+    });
+    setUpdateFavouriteCryptocurrencies(!updateFavouriteCryptocurrencies);
   }
 
-  function updateFavoriteCryptocurrencies(uuid: string) {
-    setFavoriteCryptocurrenciesArr((favoriteCryptocurrenciesArr) => [
-      ...favoriteCryptocurrenciesArr,
-      uuid,
-    ]);
-  }
+  useEffect(() => {
+    fetch("http://localhost:8000/api/get_favorite_cryptocurrencies", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        email: user?.email,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === 200) {
+          setFavoriteCryptocurrencies(data.favoriteCryptocurrencies);
+        }
+      });
+  }, [user?.email, updateFavouriteCryptocurrencies]);
 
   if (!cryptoList) return <Loader />;
 
@@ -72,18 +116,41 @@ export const Ranking: React.FC<RankingProps> = ({ setActiveUuid }) => {
           </div>
         </div>
         <div className="ranking-list-wrapper">
-          {cryptoList?.data?.coins?.map((currency: any) => (
-            <Link to="/statistics" key={currency?.rank}>
+          {cryptoList?.data?.coins?.map((currency: ICoin, i: number) => (
+            <div
+              className="ranking-list-element"
+              onClick={() =>
+                handleSelectCryptocurrency(
+                  currency?.name + "//" + currency?.uuid
+                )
+              }
+              key={i}
+            >
               <div
-                className="ranking-list-element"
-                onClick={() => setActiveCryptocurrency(currency?.uuid)}
+                className="star-icon"
+                onClick={() =>
+                  updateFavoriteCryptocurrencies(
+                    currency?.uuid,
+                    currency?.change,
+                    currency?.iconUrl,
+                    currency?.name,
+                    currency?.price,
+                    currency?.rank,
+                    currency?.symbol
+                  )
+                }
               >
-                <div
-                  className="star-icon"
-                  onClick={() => updateFavoriteCryptocurrencies(currency?.uuid)}
-                >
-                  <RiStarLine />
-                </div>
+                <RiStarLine
+                  className={favoriteCryptocurrencies?.map((data: any) =>
+                    currency?.uuid === data?.uuid ? "active" : null
+                  )}
+                />
+              </div>
+              <Link
+                to="/statistics"
+                className="ranking-list-element-link"
+                key={currency?.rank}
+              >
                 <div className="item-number">
                   <p>{currency?.rank}</p>
                 </div>
@@ -94,13 +161,18 @@ export const Ranking: React.FC<RankingProps> = ({ setActiveUuid }) => {
                 </div>
                 <div className="item-price">
                   <p>
-                    {currency?.price < 1
-                      ? `${Math.round(currency?.price * 1000000) / 1000000}$`
-                      : `${Math.round(currency?.price * 10) / 10}$`}
+                    {parseFloat(currency?.price) < 1
+                      ? `${
+                          Math.round(parseFloat(currency?.price) * 1000000) /
+                          1000000
+                        }$`
+                      : `${
+                          Math.round(parseFloat(currency?.price) * 100) / 100
+                        }$`}
                   </p>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </div>
           ))}
         </div>
       </div>
