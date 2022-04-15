@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
+import { SelectCryptocurrencyProvider } from "./context/SelectCryptocurrencyContext";
+
 import "./styles/App.css";
 
 import NavigationBar from "./components/NavigationBar";
@@ -27,9 +29,11 @@ import "./styles/authentication/ErrorMessage.css";
 import Statistics from "./components/Statistics";
 import "./styles/Statistics.css";
 
+import Dashboard from "./components/dashboard/Dashboard";
+import "./styles/dashboard/Dashboard.css";
+
 function App() {
   const [width, setWidth] = useState<number>(window.innerWidth);
-  const [activeUuid, setActiveUuid] = useState<string>("Qwsogvtv82FCd");
 
   const [activeRegisterForm, setActiveRegisterForm] = useState<boolean>(false);
   const [activeSignInForm, setActiveSignInForm] = useState<boolean>(false);
@@ -60,57 +64,41 @@ function App() {
   return (
     <div className="App">
       <AuthProvider>
-        {activeErrorMessage && (
-          <ErrorMessage errorMessageTxt={errorMessageTxt} />
-        )}
-        {activeSignInForm && (
-          <SignInForm
-            setActiveSignInForm={setActiveSignInForm}
+        <SelectCryptocurrencyProvider>
+          {activeErrorMessage && (
+            <ErrorMessage errorMessageTxt={errorMessageTxt} />
+          )}
+          {activeSignInForm && (
+            <SignInForm
+              setActiveSignInForm={setActiveSignInForm}
+              setActiveRegisterForm={setActiveRegisterForm}
+              handleErrorMessage={handleErrorMessage}
+              setToken={setToken}
+              token={token}
+            />
+          )}
+          {activeRegisterForm && (
+            <RegisterForm
+              setActiveSignInForm={setActiveSignInForm}
+              setActiveRegisterForm={setActiveRegisterForm}
+              handleErrorMessage={handleErrorMessage}
+            />
+          )}
+          <NavigationBar
+            width={width}
             setActiveRegisterForm={setActiveRegisterForm}
-            handleErrorMessage={handleErrorMessage}
-            setToken={setToken}
-            token={token}
-          />
-        )}
-        {activeRegisterForm && (
-          <RegisterForm
+            activeRegisterForm={activeRegisterForm}
             setActiveSignInForm={setActiveSignInForm}
-            setActiveRegisterForm={setActiveRegisterForm}
-            handleErrorMessage={handleErrorMessage}
+            activeSignInForm={activeSignInForm}
           />
-        )}
-        <NavigationBar
-          width={width}
-          setActiveRegisterForm={setActiveRegisterForm}
-          activeRegisterForm={activeRegisterForm}
-          setActiveSignInForm={setActiveSignInForm}
-          activeSignInForm={activeSignInForm}
-        />
-        <Routes>
-          <Route path="/news" element={<News />} />
-          <Route
-            path="/ranking"
-            element={<Ranking setActiveUuid={setActiveUuid} />}
-          />
-          <Route
-            path="/live_chart"
-            element={
-              <LiveChart
-                setActiveUuid={setActiveUuid}
-                activeUuid={activeUuid}
-              />
-            }
-          />
-          <Route
-            path="statistics"
-            element={
-              <Statistics
-                setActiveUuid={setActiveUuid}
-                activeUuid={activeUuid}
-              />
-            }
-          />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/news" element={<News />} />
+            <Route path="/ranking" element={<Ranking />} />
+            <Route path="/live_chart" element={<LiveChart />} />
+            <Route path="statistics" element={<Statistics />} />
+          </Routes>
+        </SelectCryptocurrencyProvider>
       </AuthProvider>
     </div>
   );
