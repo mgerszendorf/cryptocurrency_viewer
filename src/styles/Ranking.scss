@@ -19,6 +19,7 @@
   .ranking-table {
     height: calc(100% - 137px - 39px);
     width: 100%;
+
     .ranking-table-header {
       display: grid;
       grid-template-columns: 10% 10% 40% 40%;
@@ -31,6 +32,7 @@
       .ranking-sort {
         @include row-y-center;
         cursor: pointer;
+
         svg {
           transition: transform 0.2s;
           font-size: 2.5rem;
@@ -55,9 +57,7 @@
 
       .ranking-list-element {
         display: grid;
-        grid-template-columns: 10% 10% 40% 40%;
-        align-items: center;
-        justify-content: center;
+        grid-template-columns: 10% 90%;
         padding: 1rem 1.5rem;
         background-color: $elements_background;
         margin: 2rem 0;
@@ -65,8 +65,24 @@
         cursor: pointer;
         transition: 0.2s;
 
-        &:hover {
-          background-color: $elements-hover;
+        .star-icon {
+          width: 100%;
+          height: 100%;
+
+          svg {
+            font-size: 1.5rem;
+            color: $txt-grey;
+            cursor: pointer;
+            transition: 0.2s;
+
+            &:active {
+              color: #ffcc33;
+            }
+          }
+
+          svg[class*="active"] {
+            color: #ffcc33;
+          }
         }
 
         div {
@@ -80,37 +96,33 @@
           }
         }
 
-        .star-icon {
-          svg {
-            font-size: 1.5rem;
-            color: $txt-grey;
-            cursor: pointer;
-            transition: 0.2s;
+        .ranking-list-element-link {
+          display: grid;
+          grid-template-columns: 11.11% 44.44% 44.44%;
 
-            &:hover {
-              color: #ffcc33;
+          .item-name {
+            img {
+              max-width: 16px;
             }
+
+            p {
+              &:nth-of-type(1) {
+                display: none;
+              }
+
+              &:nth-of-type(2) {
+                margin-left: 1rem;
+              }
+            }
+          }
+
+          .item-price {
+            margin: 0 auto;
           }
         }
 
-        .item-name {
-          img {
-            max-width: 16px;
-          }
-
-          p {
-            &:nth-of-type(1) {
-              display: none;
-            }
-
-            &:nth-of-type(2) {
-              margin-left: 1rem;
-            }
-          }
-        }
-
-        .item-price {
-          margin: 0 auto;
+        &:active {
+          background-color: $elements-hover;
         }
       }
     }
@@ -128,28 +140,41 @@
         @include scroll-bar;
 
         .ranking-list-element {
-          grid-template-columns: 10% 10% 45% 35%;
           margin-right: 1rem;
-          .item-name {
-            p {
-              &:nth-of-type(1) {
-                display: block;
-                margin-left: 1rem;
-              }
 
-              &:nth-of-type(2) {
-                font-weight: 600;
-              }
-            }
-
-            img {
-              max-width: 24px;
-            }
+          .star-icon {
+            display: flex;
+            justify-content: center;
           }
 
-          .item-number,
-          .star-icon {
-            margin: 0 auto;
+          .ranking-list-element-link {
+            grid-template-columns: 11.11% calc(50% + 15px) 38.88%;
+
+            .item-name {
+              p {
+                &:nth-of-type(1) {
+                  display: block;
+                  margin-left: 1rem;
+                }
+
+                &:nth-of-type(2) {
+                  font-weight: 600;
+                }
+              }
+
+              img {
+                max-width: 24px;
+              }
+            }
+
+            .item-number {
+              margin: 0 auto;
+            }
+
+            .star-icon {
+              display: flex;
+              justify-content: center;
+            }
           }
         }
       }
@@ -176,6 +201,10 @@
             p {
               font-size: 1.6rem;
             }
+          }
+
+          &:hover {
+            background-color: $elements-hover;
           }
         }
       }
