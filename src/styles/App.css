@@ -15,5 +15,6 @@
   display: flex;
   background-color: #17171a;
   -webkit-tap-highlight-color: transparent;
+  min-height: 100vh;
 }
 /*# sourceMappingURL=App.css.map */
