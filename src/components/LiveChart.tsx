@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import {
   Chart as ChartJS,
@@ -11,9 +11,10 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import { ICryptoListResponse } from "../interfaces/ICryptoListResponse";
+import { ICryptoListResponse, ICoin } from "../interfaces/ICryptoListResponse";
 import { ICryptoHistoryResponse } from "../interfaces/ICryptoHistoryResponse";
 import { ICoinResponse } from "../interfaces/ICoinResponse";
+import SelectCryptocurrencyContext from "../context/SelectCryptocurrencyContext";
 import Loader from "./Loader";
 
 ChartJS.register(
@@ -26,15 +27,7 @@ ChartJS.register(
   Legend
 );
 
-interface LiveChartProps {
-  setActiveUuid?: Dispatch<SetStateAction<string>>;
-  activeUuid: string;
-}
-
-export const LiveChart: React.FC<LiveChartProps> = ({
-  setActiveUuid,
-  activeUuid,
-}) => {
+export const LiveChart: React.FC = () => {
   const timePeriodsArr = ["3h", "24h", "7d", "30d", "3m", "1y", "3y", "5y"];
   const [timePeriod, setTimePeriod] = useState<string>("3h");
   const [priceHistory, setPriceHistory] = useState<ICryptoHistoryResponse>();
@@ -42,6 +35,9 @@ export const LiveChart: React.FC<LiveChartProps> = ({
   const [activeCoin, setActiveCoin] = useState<ICoinResponse>();
   const price = [];
   const timestamp = [];
+  const { handleSelectCryptocurrency, activeUuid } = useContext(
+    SelectCryptocurrencyContext
+  );
 
   //Fetching data
   useEffect(() => {
@@ -66,10 +62,6 @@ export const LiveChart: React.FC<LiveChartProps> = ({
 
     fetchData();
   }, [setPriceHistory, activeUuid, timePeriod]);
-
-  function setActiveCryptocurrency(uuid: string) {
-    if (setActiveUuid !== undefined) setActiveUuid(uuid);
-  }
 
   // Adding elements from API to price and timestamp array
   if (priceHistory?.data !== undefined) {
@@ -144,6 +136,7 @@ export const LiveChart: React.FC<LiveChartProps> = ({
     ],
   };
 
+  //Check that the data is not null
   if (!priceHistory) return <Loader />;
   if (!cryptoList) return <Loader />;
 
@@ -155,13 +148,26 @@ export const LiveChart: React.FC<LiveChartProps> = ({
         </div>
         <select
           className="search-chart-cryptocurrency"
-          onChange={(e) => [setActiveCryptocurrency(e.target.value)]}
+          onChange={(e) => [handleSelectCryptocurrency(e.target.value)]}
         >
-          {cryptoList?.data?.coins?.map((crypto: any) => (
-            <option key={crypto.name} value={crypto.uuid}>
-              {crypto.name}
-            </option>
-          ))}
+          {cryptoList?.data?.coins?.map((crypto: ICoin) =>
+            crypto?.uuid === activeUuid ? (
+              <option
+                key={crypto?.name}
+                value={crypto?.name + "//" + crypto?.uuid}
+                selected
+              >
+                {crypto?.name}
+              </option>
+            ) : (
+              <option
+                key={crypto?.name}
+                value={crypto?.name + "//" + crypto?.uuid}
+              >
+                {crypto?.name}
+              </option>
+            )
+          )}
         </select>
       </div>
       <div className="live-chart-element-wrapper">
@@ -170,7 +176,7 @@ export const LiveChart: React.FC<LiveChartProps> = ({
             className="time-period-select"
             onChange={(e) => [setTimePeriod(e.target.value)]}
           >
-            {timePeriodsArr?.map((data: any) => (
+            {timePeriodsArr?.map((data: string) => (
               <option key={data} value={data}>
                 {data}
               </option>
@@ -178,17 +184,17 @@ export const LiveChart: React.FC<LiveChartProps> = ({
           </select>
           <p>
             {activeCoin?.data !== undefined &&
-            parseInt(activeCoin?.data?.coin?.price) < 1
-              ? `Current price: ${
+            parseFloat(activeCoin?.data?.coin?.price) < 1
+              ? `Current price: $${
                   Math.round(
-                    parseInt(activeCoin?.data?.coin?.price) * 1000000
+                    parseFloat(activeCoin?.data?.coin?.price) * 1000000
                   ) / 1000000
-                }$`
-              : `Current price: ${
+                }`
+              : `Current price: $${
                   Math.round(
-                    parseInt(activeCoin?.data?.coin?.price as string) * 10
+                    parseFloat(activeCoin?.data?.coin?.price as string) * 10
                   ) / 10
-                }$`}
+                }`}
           </p>
         </div>
         <div className="live-chart-area">

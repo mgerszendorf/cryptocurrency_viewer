@@ -1,13 +1,7 @@
-import {
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useState,
-  useCallback,
-} from "react";
+import { useEffect, useState, useCallback, useContext } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { ICryptoListResponse } from "../interfaces/ICryptoListResponse";
+import { ICryptoListResponse, ICoin } from "../interfaces/ICryptoListResponse";
 import { ICoinResponse } from "../interfaces/ICoinResponse";
 import { ICoinDetailsWithTimeResponse } from "../interfaces/ICoinDetailsWithTimeResponse";
 import {
@@ -24,6 +18,7 @@ import { Line } from "react-chartjs-2";
 import { MdArrowDropUp, MdArrowDropDown } from "react-icons/md";
 import { RiMedalFill } from "react-icons/ri";
 import { FiMaximize2 } from "react-icons/fi";
+import SelectCryptocurrencyContext from "../context/SelectCryptocurrencyContext";
 import Loader from "./Loader";
 
 ChartJS.register(
@@ -36,15 +31,7 @@ ChartJS.register(
   Legend
 );
 
-interface StatisticsProps {
-  setActiveUuid?: Dispatch<SetStateAction<string>>;
-  activeUuid: string;
-}
-
-export const Statistics: React.FC<StatisticsProps> = ({
-  setActiveUuid,
-  activeUuid,
-}) => {
+export const Statistics: React.FC = () => {
   const [cryptoList, setCryptoList] = useState<ICryptoListResponse>();
   const [coinDetails, setCoinDetails] = useState<ICoinResponse>();
   const [coinDetailsWithTime, setCoinDetailsWithTime] =
@@ -53,6 +40,9 @@ export const Statistics: React.FC<StatisticsProps> = ({
   const [highestPrice, setHighestPrice] = useState<number>();
   const [timePeriod, setTimePeriod] = useState<string>("24h");
   const price: string[] = [];
+  const { handleSelectCryptocurrency, activeUuid } = useContext(
+    SelectCryptocurrencyContext
+  );
 
   //Fetching data
   useEffect(() => {
@@ -85,10 +75,6 @@ export const Statistics: React.FC<StatisticsProps> = ({
     for (let i = 0; i < coinDetails?.data?.coin?.sparkline?.length; i++) {
       price.unshift(coinDetails?.data?.coin?.sparkline[i]);
     }
-
-  function setActiveCryptocurrency(uuid: string) {
-    if (setActiveUuid !== undefined) setActiveUuid(uuid);
-  }
 
   // Determining the highest and lowest price
   const determiningHighestPrice = useCallback(() => {
@@ -177,6 +163,7 @@ export const Statistics: React.FC<StatisticsProps> = ({
     ],
   };
 
+  //Check that the data is not null
   if (!cryptoList) return <Loader />;
   if (!coinDetails) return <Loader />;
   if (!coinDetailsWithTime) return <Loader />;
@@ -189,15 +176,19 @@ export const Statistics: React.FC<StatisticsProps> = ({
         </div>
         <select
           className="select-cryptocurrency"
-          onChange={(e) => [setActiveCryptocurrency(e.target.value)]}
+          onChange={(e) => [handleSelectCryptocurrency(e.target.value)]}
         >
-          {cryptoList?.data?.coins?.map((coin: any) =>
+          {cryptoList?.data?.coins?.map((coin: ICoin) =>
             coin?.uuid === activeUuid ? (
-              <option key={coin?.rank} value={coin?.uuid} selected>
+              <option
+                key={coin?.rank}
+                value={coin?.name + "//" + coin?.uuid}
+                selected
+              >
                 {coin?.name}
               </option>
             ) : (
-              <option key={coin?.rank} value={coin?.uuid}>
+              <option key={coin?.rank} value={coin?.name + "//" + coin?.uuid}>
                 {coin?.name}
               </option>
             )
@@ -273,9 +264,11 @@ export const Statistics: React.FC<StatisticsProps> = ({
               <div>
                 <p className="volume-header">Volume</p>
               </div>
-              {/* <p className="volume-value">{`$${
-                Math.round(coinDetailsWithTime?.data?.coin?."24hVolume" * 10) / 10
-              }`}</p> */}
+              <p className="volume-value">{`${
+                Math.round(
+                  parseFloat(coinDetailsWithTime?.data?.coin["24hVolume"]) * 10
+                ) / 10
+              }`}</p>
             </div>
             <div className="percent-change">
               <div>
@@ -284,8 +277,8 @@ export const Statistics: React.FC<StatisticsProps> = ({
                   className="select-percent-change"
                   onChange={(e) => setTimePeriod(e.target.value)}
                 >
-                  {time_period_option.map((option: any) => (
-                    <option key={option} value={option}>
+                  {time_period_option.map((option: string, i: number) => (
+                    <option key={i} value={option}>
                       {option}
                     </option>
                   ))}

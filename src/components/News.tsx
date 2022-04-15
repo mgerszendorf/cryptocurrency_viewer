@@ -1,16 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import moment from "moment";
 import { INewsResponse, IValue } from "../interfaces/INewsResponse";
 import { ICryptoListResponse, ICoin } from "../interfaces/ICryptoListResponse";
 import noImage from "../img/no_photo.png";
+import SelectCryptocurrencyContext from "../context/SelectCryptocurrencyContext";
 
 import Loader from "./Loader";
 
-function News() {
-  const [newsCategory, setNewsCategory] = useState<string>("Bitcoin");
+export const News: React.FC = () => {
   const [newsData, setNewsData] = useState<INewsResponse>();
   const [cryptoList, setCryptoList] = useState<ICryptoListResponse>();
+  const { newsCategory, handleSelectCryptocurrency, activeUuid } = useContext(
+    SelectCryptocurrencyContext
+  );
 
   //Fetching data
   useEffect(() => {
@@ -18,6 +21,7 @@ function News() {
       await axios
         .post("http://localhost:8000/api/get_news", {
           newsCategory,
+          count: 100,
         })
         .then((res: any) => setNewsData(res.data));
 
@@ -40,18 +44,31 @@ function News() {
         </div>
         <select
           className="search-cryptocurrency"
-          onChange={(e) => [setNewsCategory(e.target.value)]}
+          onChange={(e) => [handleSelectCryptocurrency(e.target.value)]}
         >
-          {cryptoList?.data?.coins?.map((currency: ICoin) => (
-            <option key={currency?.uuid} value={currency?.name}>
-              {currency?.name}
-            </option>
-          ))}
+          {cryptoList?.data?.coins?.map((currency: ICoin) =>
+            currency?.uuid === activeUuid ? (
+              <option
+                key={currency?.uuid}
+                value={currency?.name + "//" + currency?.uuid}
+                selected
+              >
+                {currency?.name}
+              </option>
+            ) : (
+              <option
+                key={currency?.uuid}
+                value={currency?.name + "//" + currency?.uuid}
+              >
+                {currency?.name}
+              </option>
+            )
+          )}
         </select>
       </div>
       <div className="news-element-wrapper">
-        {newsData?.value.map((news: IValue) => (
-          <div className="news-element" key={news.url}>
+        {newsData?.value.map((news: IValue, i: number) => (
+          <div className="news-element" key={i}>
             <a href={news.url} target="_blank" rel="noreferrer">
               <img
                 className="news-element-img"
@@ -79,6 +96,6 @@ function News() {
       </div>
     </section>
   );
-}
+};
 
 export default News;
