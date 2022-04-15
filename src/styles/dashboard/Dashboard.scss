@@ -1,0 +1,69 @@
+@import "../abstracts/variables";
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: 580px;
+
+  .dashboard-left-area {
+    .dashboard-top-bar {
+      text-align: center;
+      margin: 6rem 0 3rem 0;
+
+      p {
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: $light-green;
+      }
+
+      h2 {
+        font-size: 3rem;
+        color: #fff;
+        margin-top: 1rem;
+      }
+    }
+  }
+}
+
+@media all and (min-width: 1024px) {
+  .dashboard {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 2rem 3rem;
+
+    .dashboard-left-area {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 65%;
+      height: calc(100vh - 4rem);
+
+      .dashboard-top-bar {
+        text-align: left;
+      }
+
+      .abbreviated-statistics-wrapper {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+          width: 8px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background: $elements_background;
+          border-radius: 100vw;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: $scrollbar-thumb-color;
+          border-radius: 100vw;
+        }
+      }
+    }
+  }
+}

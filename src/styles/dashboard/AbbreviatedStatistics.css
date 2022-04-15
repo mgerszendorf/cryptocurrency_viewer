@@ -1,0 +1,128 @@
+.abbreviated-statistics {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #1b1b21;
+  padding: 2rem 6rem;
+  border-radius: 12px;
+  margin: 2rem 1rem;
+  width: 90vw;
+  max-width: 350px;
+}
+
+.abbreviated-statistics .abbreviated-statistics-container .cryptocurrency-name-and-icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.abbreviated-statistics .abbreviated-statistics-container .cryptocurrency-name-and-icon p {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #fff;
+  margin-left: 1rem;
+}
+
+.abbreviated-statistics .abbreviated-statistics-container .cryptocurrency-name-and-icon img {
+  width: 32px;
+}
+
+.abbreviated-statistics .abbreviated-statistics-container .cryptocurrency-price p {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  margin: 3rem 0;
+}
+
+.abbreviated-statistics .abbreviated-statistics-container .other-statistics {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.abbreviated-statistics .abbreviated-statistics-container .other-statistics .volume-24h {
+  text-align: center;
+}
+
+.abbreviated-statistics .abbreviated-statistics-container .other-statistics .volume-24h p {
+  font-size: 1.6rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.abbreviated-statistics .abbreviated-statistics-container .other-statistics .volume-24h div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.abbreviated-statistics .abbreviated-statistics-container .other-statistics .volume-24h div svg {
+  font-size: 2rem;
+}
+
+.abbreviated-statistics .abbreviated-statistics-container .other-statistics .volume-24h div p {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.abbreviated-statistics .abbreviated-statistics-container .other-statistics .rank {
+  text-align: center;
+}
+
+.abbreviated-statistics .abbreviated-statistics-container .other-statistics .rank p {
+  font-size: 1.6rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.abbreviated-statistics .abbreviated-statistics-container .other-statistics .rank div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.abbreviated-statistics .abbreviated-statistics-container .other-statistics .rank div p {
+  font-size: 1.6rem;
+  color: #fa47ce;
+  font-weight: 600;
+  margin: 0;
+}
+
+@media all and (min-width: 1024px) {
+  .abbreviated-statistics {
+    margin: 1.5rem;
+    max-width: none;
+    width: 300px;
+  }
+}
+/*# sourceMappingURL=AbbreviatedStatistics.css.map */

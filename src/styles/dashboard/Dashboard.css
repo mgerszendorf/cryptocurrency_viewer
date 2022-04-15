@@ -1,0 +1,84 @@
+.dashboard {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  min-height: 580px;
+}
+
+.dashboard .dashboard-left-area .dashboard-top-bar {
+  text-align: center;
+  margin: 6rem 0 3rem 0;
+}
+
+.dashboard .dashboard-left-area .dashboard-top-bar p {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #1fc2a0;
+}
+
+.dashboard .dashboard-left-area .dashboard-top-bar h2 {
+  font-size: 3rem;
+  color: #fff;
+  margin-top: 1rem;
+}
+
+@media all and (min-width: 1024px) {
+  .dashboard {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    padding: 2rem 3rem;
+  }
+  .dashboard .dashboard-left-area {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    width: 65%;
+    height: calc(100vh - 4rem);
+  }
+  .dashboard .dashboard-left-area .dashboard-top-bar {
+    text-align: left;
+  }
+  .dashboard .dashboard-left-area .abbreviated-statistics-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    overflow-y: auto;
+  }
+  .dashboard .dashboard-left-area .abbreviated-statistics-wrapper::-webkit-scrollbar {
+    width: 8px;
+  }
+  .dashboard .dashboard-left-area .abbreviated-statistics-wrapper::-webkit-scrollbar-track {
+    background: #1b1b21;
+    border-radius: 100vw;
+  }
+  .dashboard .dashboard-left-area .abbreviated-statistics-wrapper::-webkit-scrollbar-thumb {
+    background: #0d0d0ebb;
+    border-radius: 100vw;
+  }
+}
+/*# sourceMappingURL=Dashboard.css.map */

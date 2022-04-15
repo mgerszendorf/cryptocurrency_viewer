@@ -1,0 +1,104 @@
+@import "../abstracts/variables";
+
+.abbreviated-statistics {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: $elements_background;
+  padding: 2rem 6rem;
+  border-radius: 12px;
+  margin: 2rem 1rem;
+  width: 90vw;
+  max-width: 350px;
+
+  .abbreviated-statistics-container {
+    .cryptocurrency-name-and-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      p {
+        font-size: 2rem;
+        font-weight: 500;
+        color: #fff;
+        margin-left: 1rem;
+      }
+
+      img {
+        width: 32px;
+      }
+    }
+
+    .cryptocurrency-price {
+      p {
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: #fff;
+        text-align: center;
+        margin: 3rem 0;
+      }
+    }
+
+    .other-statistics {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .volume-24h {
+        text-align: center;
+
+        p {
+          font-size: 1.6rem;
+          color: #fff;
+          margin-bottom: 0.5rem;
+        }
+
+        div {
+          display: flex;
+          align-items: center;
+
+          svg {
+            font-size: 2rem;
+          }
+
+          p {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin: 0;
+          }
+        }
+      }
+
+      .rank {
+        text-align: center;
+
+        p {
+          font-size: 1.6rem;
+          color: #fff;
+          margin-bottom: 0.5rem;
+        }
+
+        div {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          p {
+            font-size: 1.6rem;
+            color: $pink;
+            font-weight: 600;
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media all and (min-width: 1024px) {
+  .abbreviated-statistics {
+    margin: 1.5rem;
+    max-width: none;
+    width: 300px;
+  }
+}
