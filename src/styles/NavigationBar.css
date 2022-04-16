@@ -107,7 +107,6 @@
       -ms-flex-align: center;
           align-items: center;
   padding: 2rem 2rem 7vh 0;
-  cursor: pointer;
 }
 
 .navigation-bar .menu .user-icon img {
