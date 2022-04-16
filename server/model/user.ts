@@ -1,4 +1,4 @@
-const mongooseSchema = require('mongoose')
+const mongooseSchema = require("mongoose");
 
 const UserSchema = mongooseSchema.Schema(
   {
@@ -6,7 +6,7 @@ const UserSchema = mongooseSchema.Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     checkbox: { type: String, required: true },
-    favoriteCryptocurrencies: { type: Array }
+    favoriteCryptocurrencies: [{ type: Object }],
   },
   {
     collection: "users",

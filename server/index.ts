@@ -30,32 +30,35 @@ mongoose
     console.error("Error:", err);
   });
 
-  // Middleware
-  const authMiddleware = (req: any, res: any, next: any) => {
-    const token = req.headers['authorization']?.split(' ')[1];
-    if (!token) {
-      return res.sendStatus(401);
-    }
-
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err: any, data: any) => {
-      if (err) {
-        return res.sendStatus(403)
-      }
-
-      req.user = data;
-      next();
-    })
+// Middleware
+const authMiddleware = (req: any, res: any, next: any) => {
+  const token = req.headers["authorization"]?.split(" ")[1];
+  if (!token) {
+    return res.sendStatus(401);
   }
 
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err: any, data: any) => {
+    if (err) {
+      return res.sendStatus(403);
+    }
+
+    req.user = data;
+    next();
+  });
+};
+
 // Sign in
-let refreshTokens: Array<any> = []
+let refreshTokens: Array<any> = [];
 
 app.post("/api/users/sign_in", async (req: any, res: any) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email }).lean();
 
   if (!user) {
-    return res.json({ status: "error", error: "Invalid username or password" });
+    return res.json({
+      status: 400,
+      error: "Invalid username or password",
+    });
   }
 
   const payload = {
@@ -66,48 +69,61 @@ app.post("/api/users/sign_in", async (req: any, res: any) => {
   };
 
   if (await bcrypt.compare(password, user.password)) {
-    const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' })
-    const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET)
-    refreshTokens.push(refreshToken)
+    const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
+      expiresIn: "15m",
+    });
+    const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET);
+    refreshTokens.push(refreshToken);
 
-    console.log(refreshTokens)
-
-    return res.json({ status: 200, data: {'accessToken': accessToken, 'refreshToken': refreshToken}});
+    return res.json({
+      status: 200,
+      data: { accessToken: accessToken, refreshToken: refreshToken },
+    });
   }
 });
 
 // Refresh token
 
-app.post('/api/users/refresh_token', (req: any, res: any) => {
+app.post("/api/users/refresh_token", (req: any, res: any) => {
   const { refreshToken } = req.body;
+
+  console.log("refreshToken" + refreshToken);
 
   if (!refreshTokens.includes(refreshToken)) {
     return res.sendStatus(403);
   }
-  
-  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err:any, data:any) => {
-    if (err) {
-      return res.sendStatus(403);
-    }
 
-    const payload = {
-      email: data.email,
-      username: data.username,
-      favoriteCryptocurrencies: data.favoriteCryptocurrencies,
-      checkbox: data.checkbox,
+  jwt.verify(
+    refreshToken,
+    process.env.REFRESH_TOKEN_SECRET,
+    (err: any, data: any) => {
+      if (err) {
+        return res.sendStatus(403);
+      }
+
+      const payload = {
+        email: data.email,
+        username: data.username,
+        favoriteCryptocurrencies: data.favoriteCryptocurrencies,
+        checkbox: data.checkbox,
+      };
+      const newAccessToken = jwt.sign(
+        payload,
+        process.env.ACCESS_TOKEN_SECRET,
+        { expiresIn: "15m" }
+      );
+      return res.json({ status: 200, accessToken: newAccessToken });
     }
-    const newAccessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' })
-    return res.json({ status: 200, accessToken: newAccessToken});
-  })
-})
+  );
+});
 
 // Logout
 
-app.post('./logout', (req: any, res: any) => {
+app.post("./logout", (req: any, res: any) => {
   const { refreshToken } = req.body;
-  refreshTokens = refreshTokens.filter(t => t !== refreshToken)
-  res.sendStatus(204)
-})
+  refreshTokens = refreshTokens.filter((t) => t !== refreshToken);
+  res.sendStatus(204);
+});
 
 // Register
 app.post("/api/users/register", async (req: any, res: any) => {
@@ -117,33 +133,33 @@ app.post("/api/users/register", async (req: any, res: any) => {
     password: plainTextPassword,
     confirmPassword,
     checkbox,
-    favoriteCryptocurrencies
+    favoriteCryptocurrencies,
   } = req.body;
 
-  console.log(req.body)
+  console.log(req.body);
 
   if (!username || typeof username !== "string") {
-    return res.json({ status: "error", error: "Invalid username" });
+    return res.json({ status: 400, error: "Invalid username" });
   }
 
   if (!email || typeof email !== "string") {
-    return res.json({ status: "error", error: "Invalid email" });
+    return res.json({ status: 400, error: "Invalid email" });
   }
 
   if (!plainTextPassword || typeof plainTextPassword !== "string") {
-    return res.json({ status: "error", error: "Invalid password" });
+    return res.json({ status: 400, error: "Invalid password" });
   }
 
   if (plainTextPassword.length < 5) {
     return res.json({
-      status: "error",
+      status: 400,
       error: "Password too small. Should be atleast 6 characters",
     });
   }
 
   if (plainTextPassword !== confirmPassword) {
     return res.json({
-      status: "error",
+      status: 400,
       error: "The passwords are different from each other",
     });
   }
@@ -156,17 +172,81 @@ app.post("/api/users/register", async (req: any, res: any) => {
       email,
       password,
       checkbox,
-      favoriteCryptocurrencies
+      favoriteCryptocurrencies,
     });
     console.log("User created successfully: ", response);
   } catch (err: any) {
     if (err.code === 11000) {
       // duplicate key
-      return res.json({ status: "error", error: "Email already in use" });
+      return res.json({ status: 400, error: "Email already in use" });
     }
     throw err;
   }
-  res.json({ status: "ok" });
+  res.json({ status: 200 });
+});
+
+// Update favorite cryptocurrencies
+
+app.post(
+  "/api/update_favorite_cryptocurrencies",
+  authMiddleware,
+  (req: any, res: any) => {
+    const { email, uuid, coinData } = req.body;
+
+    User.findOne({ email }, (err: any, data: any) => {
+      // if (
+      //   data.favoriteCryptocurrencies.filter((e: any) => e.uuid === uuid).length >
+      //   0
+      // ) {
+      //   console.log("ok");
+      // }
+
+      if (
+        data.favoriteCryptocurrencies.filter((e: any) => e.uuid === uuid)
+          .length > 0
+      ) {
+        console.log("zawiera");
+        User.findOneAndUpdate(
+          { email },
+          { $pull: { favoriteCryptocurrencies: { uuid: uuid } } },
+          (err: any, data: any) => {}
+        );
+      } else {
+        console.log("nie zawiera");
+        User.findOneAndUpdate(
+          { email },
+          { $addToSet: { favoriteCryptocurrencies: coinData } },
+          function (error: any, success: any) {
+            // if (error) {
+            //   console.log("error" + error);
+            // } else {
+            //   console.log("success" + success);
+            // }
+          }
+        );
+      }
+
+      User.findOne({ email }, (err: any, data: any) => {
+        return res.json({
+          status: 200,
+          favoriteCryptocurrencies: data.favoriteCryptocurrencies,
+        });
+      });
+    });
+  }
+);
+
+// Get favorite cryptocurrencies
+
+app.post("/api/get_favorite_cryptocurrencies", (req: any, res: any) => {
+  const { email } = req.body;
+
+  User.findOne({ email }, (err: any, data: any) => {
+    return res.json({
+      status: 200,
+      favoriteCryptocurrencies: data.favoriteCryptocurrencies,
+    });
+  });
 });
 
 // GET CRYPTO LIST
@@ -235,12 +315,34 @@ app.post("/api/get_coin", (req: any, res: any) => {
     });
 });
 
+// GET COIN WITH THE POSSIBLITY OF CHANGING THE TIME
+
+app.post("/api/get_coin_time", (req: any, res: any) => {
+  const options = {
+    method: "GET",
+    url: `https://coinranking1.p.rapidapi.com/coin/${req.body.activeUuid}?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=${req.body.timePeriod}`,
+    headers: {
+      "x-rapidapi-host": "coinranking1.p.rapidapi.com",
+      "x-rapidapi-key": process.env.REACT_APP_RAPID_API_KEY,
+    },
+  };
+
+  axios
+    .request(options)
+    .then((response: any) => {
+      res.json(response.data);
+    })
+    .catch((error: any) => {
+      console.error(error);
+    });
+});
+
 // GET NEWS
 
 app.post("/api/get_news", (req: any, res: any) => {
   const options = {
     method: "GET",
-    url: `https://bing-news-search1.p.rapidapi.com/news/search?q=${req.body.newsCategory}&safeSearch=Off&textFormat=Raw&freshness=Day&count=100`,
+    url: `https://bing-news-search1.p.rapidapi.com/news/search?q=${req.body.newsCategory}&safeSearch=Off&textFormat=Raw&freshness=Day&count=${req.body.count}`,
     headers: {
       "X-BingApis-SDK": "true",
       "X-RapidAPI-Host": "bing-news-search1.p.rapidapi.com",
