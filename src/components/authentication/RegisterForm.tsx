@@ -1,17 +1,8 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useState, useContext } from "react";
 import { MdClose } from "react-icons/md";
+import AuthContext from "../../context/AuthContext";
 
-interface RegisterFormProps {
-  setActiveSignInForm?: Dispatch<SetStateAction<boolean>>;
-  setActiveRegisterForm?: Dispatch<SetStateAction<boolean>>;
-  handleErrorMessage(txt: string): void;
-}
-
-export const RegisterForm: React.FC<RegisterFormProps> = ({
-  setActiveSignInForm,
-  setActiveRegisterForm,
-  handleErrorMessage,
-}) => {
+export const RegisterForm: React.FC = () => {
   const [registerFormData, setRegisterFormData] = useState({
     username: "",
     email: "",
@@ -20,6 +11,8 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
     checkbox: "",
     favoriteCryptocurrencies: [],
   });
+  const { setActiveSignInForm, setActiveRegisterForm, handleErrorMessage } =
+    useContext(AuthContext);
 
   function handleRegisterFormCloseBtn() {
     if (setActiveRegisterForm !== undefined) setActiveRegisterForm(false);
@@ -41,10 +34,11 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
       body: JSON.stringify(registerFormData),
     }).then((response) => response.json());
 
-    if (result.status === "ok") {
+    if (result.status === 200) {
       handleErrorMessage("Success");
       handleRegisterFormCreateBtn();
     } else {
+      console.log(result.error);
       handleErrorMessage(result.error);
     }
   }

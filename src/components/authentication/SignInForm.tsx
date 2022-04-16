@@ -1,33 +1,11 @@
-import React, {
-  useState,
-  useEffect,
-  Dispatch,
-  SetStateAction,
-  useContext,
-} from "react";
+import React, { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 import { GoSignIn } from "react-icons/go";
 import { MdClose } from "react-icons/md";
 
-interface SignInFormProps {
-  setActiveSignInForm?: Dispatch<SetStateAction<boolean>>;
-  setActiveRegisterForm?: Dispatch<SetStateAction<boolean>>;
-  handleErrorMessage(txt: string): void;
-  setToken?: Dispatch<SetStateAction<string>>;
-  token: string;
-}
-
-export const SignInForm: React.FC<SignInFormProps> = ({
-  setActiveSignInForm,
-  setActiveRegisterForm,
-  handleErrorMessage,
-  setToken,
-  token,
-}) => {
-  const [signInFormData, setSignInFormData] = useState({
-    email: "",
-    password: "",
-  });
+export const SignInForm: React.FC = () => {
+  const { setActiveSignInForm, setActiveRegisterForm, loginUser } =
+    useContext(AuthContext);
 
   function handleSignInCloseBtn() {
     if (setActiveSignInForm !== undefined) setActiveSignInForm(false);
@@ -37,35 +15,6 @@ export const SignInForm: React.FC<SignInFormProps> = ({
     if (setActiveRegisterForm !== undefined) setActiveRegisterForm(true);
     if (setActiveSignInForm !== undefined) setActiveSignInForm(false);
   }
-
-  function handleSetToken(token: string) {
-    if (setToken !== undefined) setToken(token);
-    if (token !== "") {
-      if (setActiveRegisterForm !== undefined) setActiveRegisterForm(false);
-      if (setActiveSignInForm !== undefined) setActiveSignInForm(false);
-    }
-  }
-
-  // async function sendSignInFormData(e: any) {
-  //   e.preventDefault();
-
-  //   const result = await fetch("http://localhost:8000/api/users/sign_in", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-type": "application/json",
-  //     },
-  //     body: JSON.stringify(signInFormData),
-  //   }).then((res) => res.json());
-
-  //   if (result.status === 200) {
-  //     handleSetToken(result.data);
-  //     localStorage.setItem("authTokens", result.data);
-  //   } else {
-  //     handleErrorMessage(result.error);
-  //   }
-  // }
-
-  let { loginUser } = useContext(AuthContext);
 
   return (
     <section className="sign-in">
@@ -84,12 +33,6 @@ export const SignInForm: React.FC<SignInFormProps> = ({
           placeholder="Email"
           onFocus={(e) => (e.target.placeholder = "")}
           onBlur={(e) => (e.target.placeholder = "Email")}
-          onChange={(e) =>
-            setSignInFormData((prevState) => ({
-              ...prevState,
-              email: e.target.value,
-            }))
-          }
         />
         <input
           required
@@ -98,12 +41,6 @@ export const SignInForm: React.FC<SignInFormProps> = ({
           placeholder="Password"
           onFocus={(e) => (e.target.placeholder = "")}
           onBlur={(e) => (e.target.placeholder = "Password")}
-          onChange={(e) =>
-            setSignInFormData((prevState) => ({
-              ...prevState,
-              password: e.target.value,
-            }))
-          }
         />
 
         <button>

@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useState, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { BiHomeAlt, BiNews } from "react-icons/bi";
 import {
@@ -9,24 +9,35 @@ import {
 import { RiMedalFill } from "react-icons/ri";
 import { GoSignIn } from "react-icons/go";
 
-import user from "../img/user.png";
+import female from "../img/female.png";
+import male from "../img/male.png";
+import guest from "../img/guest.png";
+
+import RegisterForm from "./authentication/RegisterForm";
+import SignInForm from "./authentication/SignInForm";
+import AuthContext from "../context/AuthContext";
+
+import ErrorMessage from "./authentication/ErrorMessage";
+import "../styles/authentication/ErrorMessage.css";
+
+import "../styles/authentication/RegisterForm.css";
+import "../styles/authentication/SignInForm.css";
 
 interface NavigationBarProps {
   width: number;
-  setActiveRegisterForm?: Dispatch<SetStateAction<boolean>>;
-  activeRegisterForm: boolean;
-  setActiveSignInForm?: Dispatch<SetStateAction<boolean>>;
-  activeSignInForm: boolean;
 }
 
-export const NavigationBar: React.FC<NavigationBarProps> = ({
-  width,
-  setActiveRegisterForm,
-  activeRegisterForm,
-  setActiveSignInForm,
-  activeSignInForm,
-}) => {
+export const NavigationBar: React.FC<NavigationBarProps> = ({ width }) => {
   const [activeMenu, setActiveMenu] = useState<boolean>(false);
+  const {
+    activeSignInForm,
+    setActiveSignInForm,
+    activeRegisterForm,
+    setActiveRegisterForm,
+    activeErrorMessage,
+    user,
+    logoutUser,
+  } = useContext(AuthContext);
 
   // Disable scroll on body
   if (activeMenu && width < 1024) {
@@ -63,6 +74,8 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
     color: "#1fc2a0",
   };
 
+  console.log(user);
+
   return (
     <div className="navigation-bar">
       <div className="menu-icon">
@@ -89,11 +102,17 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
       </div>
       <div className={activeMenu || width > 1024 ? "menu" : "menu none"}>
         <div className="user-icon" onClick={() => setActiveMenu(false)}>
-          <img src={user} alt="" />
-          <div>
-            <p>Lana </p>
-            <p>Steiner</p>
-          </div>
+          {user ? (
+            user.checkbox === "female" ? (
+              <img src={female} alt="" />
+            ) : (
+              <img src={male} alt="" />
+            )
+          ) : (
+            <img src={guest} alt="" />
+          )}
+
+          <div>{user ? <p>{user?.username}</p> : <p>Guest</p>}</div>
         </div>
 
         <ul className="menu-links">
@@ -177,9 +196,16 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
           </li>
         </ul>
         <div className="button-authentication-wrapper">
-          <button onClick={() => handleSignInButton()}>
-            <GoSignIn /> Sign in
-          </button>
+          {user ? (
+            <button onClick={() => logoutUser()}>
+              <AiOutlinePoweroff /> Sign out
+            </button>
+          ) : (
+            <button onClick={() => handleSignInButton()}>
+              <GoSignIn /> Sign in
+            </button>
+          )}
+
           <p>
             Not registered yet?{" "}
             <span onClick={() => handleCreateAccountButton()}>
@@ -188,6 +214,9 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
           </p>
         </div>
       </div>
+      {activeErrorMessage && <ErrorMessage />}
+      {activeSignInForm && <SignInForm />}
+      {activeRegisterForm && <RegisterForm />}
     </div>
   );
 };

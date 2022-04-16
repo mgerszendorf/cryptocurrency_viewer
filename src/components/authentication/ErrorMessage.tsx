@@ -1,12 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import AuthContext from "../../context/AuthContext";
 
-interface ErrorMessageProps {
-  errorMessageTxt: string | undefined;
-}
+export const ErrorMessage: React.FC = () => {
+  const { errorMessageTxt } = useContext(AuthContext);
 
-export const ErrorMessage: React.FC<ErrorMessageProps> = ({
-  errorMessageTxt,
-}) => {
   return (
     <div className="error-message">
       <p>{errorMessageTxt}</p>

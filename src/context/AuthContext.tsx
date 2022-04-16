@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState } from "react";
 import jwt_decode from "jwt-decode";
 
 const AuthContext = createContext<any>(null);
@@ -6,10 +6,13 @@ const AuthContext = createContext<any>(null);
 export default AuthContext;
 
 export const AuthProvider: React.FC<any> = ({ children }) => {
-  let [accessToken, setAccessToken] = useState<string>();
-  let [refreshToken, setRefreshToken] = useState<string>();
-  let [user, setUser] = useState<string>();
-  let [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<string>();
+  const [accessToken, setAccessToken] = useState<string>();
+  const [refreshToken, setRefreshToken] = useState<string>();
+  const [activeRegisterForm, setActiveRegisterForm] = useState<boolean>(false);
+  const [activeSignInForm, setActiveSignInForm] = useState<boolean>(false);
+  const [activeErrorMessage, setActiveErrorMessage] = useState<boolean>(false);
+  const [errorMessageTxt, setErrorMessageTxt] = useState<string>();
 
   let loginUser = async (e: any) => {
     e.preventDefault();
@@ -23,23 +26,20 @@ export const AuthProvider: React.FC<any> = ({ children }) => {
         email: e.target.email.value,
         password: e.target.password.value,
       }),
-    }).then((res) => res.json());
+    });
 
-    if (response.status === 200) {
-      setAccessToken(response.data.accessToken);
-      setRefreshToken(response.data.refreshToken);
-      localStorage.setItem("accessToken", response.data.accessToken);
-      if (accessToken !== undefined)
-        setUser(jwt_decode(response.data.accessToken));
+    let result = await response.json();
+
+    if (result.status === 200) {
+      setAccessToken(result.data.accessToken);
+      setRefreshToken(result.data.refreshToken);
+      setUser(jwt_decode(result.data.accessToken));
+      setActiveSignInForm(false);
+      setActiveRegisterForm(false);
+      handleErrorMessage("Logged in successfully");
     } else {
-      alert("Something went wrong!");
+      handleErrorMessage(result.error);
     }
-  };
-
-  let logoutUser = () => {
-    setAccessToken("");
-    setRefreshToken("");
-    localStorage.removeItem("accessToken");
   };
 
   let updateToken = async () => {
@@ -56,40 +56,44 @@ export const AuthProvider: React.FC<any> = ({ children }) => {
 
     if (response.status === 200) {
       setAccessToken(response.accessToken);
-      localStorage.setItem("accessToken", response.accessToken);
     } else {
       logoutUser();
     }
-
-    if (loading) {
-      setLoading(false);
-    }
   };
+
+  let logoutUser = () => {
+    setUser("");
+    setAccessToken("");
+    setRefreshToken("");
+    handleErrorMessage("You have been logged out");
+  };
+
+  function handleErrorMessage(txt: string) {
+    setErrorMessageTxt(txt);
+    setActiveErrorMessage(true);
+    setTimeout(() => {
+      setActiveErrorMessage(false);
+    }, 2000);
+  }
 
   let contextData = {
+    loginUser,
+    updateToken,
+    user: user,
     accessToken: accessToken,
-    loginUser: loginUser,
-    logoutUser: logoutUser,
+    setActiveRegisterForm,
+    activeRegisterForm,
+    setActiveSignInForm,
+    activeSignInForm,
+    handleErrorMessage,
+    setActiveErrorMessage,
+    activeErrorMessage,
+    setErrorMessageTxt,
+    errorMessageTxt,
+    logoutUser,
   };
 
-  useEffect(() => {
-    if (loading) {
-      updateToken();
-    }
-
-    let time = 1000 * 60 * 5;
-
-    let interval = setInterval(() => {
-      if (accessToken) {
-        updateToken();
-      }
-    }, time);
-    return () => clearInterval(interval);
-  }, [accessToken, loading]);
-
   return (
-    <AuthContext.Provider value={contextData}>
-      {loading ? null : children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>
   );
 };

@@ -17,15 +17,6 @@ import "./styles/Ranking.css";
 import LiveChart from "./components/LiveChart";
 import "./styles/LiveChart.css";
 
-import RegisterForm from "./components/authentication/RegisterForm";
-import "./styles/authentication/RegisterForm.css";
-
-import SignInForm from "./components/authentication/SignInForm";
-import "./styles/authentication/SignInForm.css";
-
-import ErrorMessage from "./components/authentication/ErrorMessage";
-import "./styles/authentication/ErrorMessage.css";
-
 import Statistics from "./components/Statistics";
 import "./styles/Statistics.css";
 
@@ -34,20 +25,6 @@ import "./styles/dashboard/Dashboard.css";
 
 function App() {
   const [width, setWidth] = useState<number>(window.innerWidth);
-
-  const [activeRegisterForm, setActiveRegisterForm] = useState<boolean>(false);
-  const [activeSignInForm, setActiveSignInForm] = useState<boolean>(false);
-  const [activeErrorMessage, setActiveErrorMessage] = useState<boolean>(false);
-  const [errorMessageTxt, setErrorMessageTxt] = useState<string>();
-  const [token, setToken] = useState<string>("");
-
-  function handleErrorMessage(txt: string) {
-    setErrorMessageTxt(txt);
-    setActiveErrorMessage(true);
-    setTimeout(() => {
-      setActiveErrorMessage(false);
-    }, 2000);
-  }
 
   // Checking the window size for the mobile version
   function handleWindowSizeChange() {
@@ -65,32 +42,7 @@ function App() {
     <div className="App">
       <AuthProvider>
         <SelectCryptocurrencyProvider>
-          {activeErrorMessage && (
-            <ErrorMessage errorMessageTxt={errorMessageTxt} />
-          )}
-          {activeSignInForm && (
-            <SignInForm
-              setActiveSignInForm={setActiveSignInForm}
-              setActiveRegisterForm={setActiveRegisterForm}
-              handleErrorMessage={handleErrorMessage}
-              setToken={setToken}
-              token={token}
-            />
-          )}
-          {activeRegisterForm && (
-            <RegisterForm
-              setActiveSignInForm={setActiveSignInForm}
-              setActiveRegisterForm={setActiveRegisterForm}
-              handleErrorMessage={handleErrorMessage}
-            />
-          )}
-          <NavigationBar
-            width={width}
-            setActiveRegisterForm={setActiveRegisterForm}
-            activeRegisterForm={activeRegisterForm}
-            setActiveSignInForm={setActiveSignInForm}
-            activeSignInForm={activeSignInForm}
-          />
+          <NavigationBar width={width} />
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/news" element={<News />} />
