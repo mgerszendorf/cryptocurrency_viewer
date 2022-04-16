@@ -201,7 +201,7 @@ export const LiveChart: React.FC = () => {
           <Line
             data={data}
             options={options}
-            style={{ width: "100%", maxHeight: "95%" }}
+            style={{ width: "100%", maxHeight: "85%" }}
           />
         </div>
       </div>
