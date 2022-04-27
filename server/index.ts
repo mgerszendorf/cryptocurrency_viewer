@@ -70,7 +70,7 @@ app.post("/api/users/sign_in", async (req: any, res: any) => {
 
   if (await bcrypt.compare(password, user.password)) {
     const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: "15m",
+      expiresIn: "60m",
     });
     const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET);
     refreshTokens.push(refreshToken);
@@ -83,38 +83,34 @@ app.post("/api/users/sign_in", async (req: any, res: any) => {
 });
 
 // Refresh token
-
 app.post("/api/users/refresh_token", (req: any, res: any) => {
   const { refreshToken } = req.body;
 
-  console.log("refreshToken" + refreshToken);
+  const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
+  const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET;
 
-  if (!refreshTokens.includes(refreshToken)) {
-    return res.sendStatus(403);
+  try {
+    const jwtClaims = jwt.verify(refreshToken, refreshTokenSecret);
+
+    const payload = {
+      email: jwtClaims.email,
+      username: jwtClaims.username,
+      favoriteCryptocurrencies: jwtClaims.favoriteCryptocurrencies,
+      checkbox: jwtClaims.checkbox,
+    };
+
+    const newAccessToken = jwt.sign(payload, accessTokenSecret, {
+      expiresIn: "60m",
+    });
+    const newRefreshToken = jwt.sign(payload, refreshTokenSecret);
+
+    return res.json({
+      status: 200,
+      data: { accessToken: newAccessToken, refreshToken: newRefreshToken },
+    });
+  } catch (error) {
+    return res.json({ status: 401, error });
   }
-
-  jwt.verify(
-    refreshToken,
-    process.env.REFRESH_TOKEN_SECRET,
-    (err: any, data: any) => {
-      if (err) {
-        return res.sendStatus(403);
-      }
-
-      const payload = {
-        email: data.email,
-        username: data.username,
-        favoriteCryptocurrencies: data.favoriteCryptocurrencies,
-        checkbox: data.checkbox,
-      };
-      const newAccessToken = jwt.sign(
-        payload,
-        process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: "15m" }
-      );
-      return res.json({ status: 200, accessToken: newAccessToken });
-    }
-  );
 });
 
 // Logout
@@ -135,8 +131,6 @@ app.post("/api/users/register", async (req: any, res: any) => {
     checkbox,
     favoriteCryptocurrencies,
   } = req.body;
-
-  console.log(req.body);
 
   if (!username || typeof username !== "string") {
     return res.json({ status: 400, error: "Invalid username" });
@@ -174,7 +168,6 @@ app.post("/api/users/register", async (req: any, res: any) => {
       checkbox,
       favoriteCryptocurrencies,
     });
-    console.log("User created successfully: ", response);
   } catch (err: any) {
     if (err.code === 11000) {
       // duplicate key
@@ -205,14 +198,12 @@ app.post(
         data.favoriteCryptocurrencies.filter((e: any) => e.uuid === uuid)
           .length > 0
       ) {
-        console.log("zawiera");
         User.findOneAndUpdate(
           { email },
           { $pull: { favoriteCryptocurrencies: { uuid: uuid } } },
           (err: any, data: any) => {}
         );
       } else {
-        console.log("nie zawiera");
         User.findOneAndUpdate(
           { email },
           { $addToSet: { favoriteCryptocurrencies: coinData } },
