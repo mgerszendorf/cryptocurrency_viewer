@@ -38,7 +38,6 @@ export const RegisterForm: React.FC = () => {
       handleErrorMessage("Success");
       handleRegisterFormCreateBtn();
     } else {
-      console.log(result.error);
       handleErrorMessage(result.error);
     }
   }

@@ -12,12 +12,12 @@ export const Ranking: React.FC = () => {
   // button state to sort
   const [rankingToggle, setRankingToggle] = useState<boolean>(true);
   const [cryptoList, setCryptoList] = useState<ICryptoListResponse>();
+  const [favoriteCryptocurrencies, setFavoriteCryptocurrencies] =
+    useState<any>();
   const [updateFavouriteCryptocurrencies, setUpdateFavouriteCryptocurrencies] =
     useState<boolean>(false);
-  const [favoriteCryptocurrencies, setFavoriteCryptocurrencies] = useState<any>(
-    []
-  );
-  const { user } = useContext(AuthContext);
+  const { user, accessToken, updateToken, handleErrorMessage } =
+    useContext(AuthContext);
   const { handleSelectCryptocurrency } = useContext(
     SelectCryptocurrencyContext
   );
@@ -58,18 +58,33 @@ export const Ranking: React.FC = () => {
       symbol,
     };
 
-    await fetch("http://localhost:8000/api/update_favorite_cryptocurrencies", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        email: user.email,
-        uuid: uuid,
-        coinData,
-      }),
-    });
-    setUpdateFavouriteCryptocurrencies(!updateFavouriteCryptocurrencies);
+    try {
+      let response = await fetch(
+        "http://localhost:8000/api/update_favorite_cryptocurrencies",
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+            authorization: "Bearer " + accessToken,
+          },
+          body: JSON.stringify({
+            email: user?.email,
+            uuid: uuid,
+            coinData,
+          }),
+        }
+      );
+      setUpdateFavouriteCryptocurrencies(!updateFavouriteCryptocurrencies);
+
+      if (response.status === 401) {
+        updateToken();
+      }
+      if (response.status === 403) {
+        updateToken();
+      }
+    } catch {
+      handleErrorMessage("You must log in to access this feature");
+    }
   }
 
   useEffect(() => {
@@ -77,6 +92,7 @@ export const Ranking: React.FC = () => {
       method: "POST",
       headers: {
         "Content-type": "application/json",
+        authorization: "Bearer " + accessToken,
       },
       body: JSON.stringify({
         email: user?.email,
@@ -88,7 +104,7 @@ export const Ranking: React.FC = () => {
           setFavoriteCryptocurrencies(data.favoriteCryptocurrencies);
         }
       });
-  }, [user?.email, updateFavouriteCryptocurrencies]);
+  }, [user?.email, accessToken, updateFavouriteCryptocurrencies]);
 
   if (!cryptoList) return <Loader />;
 

@@ -74,8 +74,6 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({ width }) => {
     color: "#1fc2a0",
   };
 
-  console.log(user);
-
   return (
     <div className="navigation-bar">
       <div className="menu-icon">
@@ -205,13 +203,14 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({ width }) => {
               <GoSignIn /> Sign in
             </button>
           )}
-
-          <p>
-            Not registered yet?{" "}
-            <span onClick={() => handleCreateAccountButton()}>
-              Create an Account
-            </span>
-          </p>
+          {!user && (
+            <p>
+              Not registered yet?{" "}
+              <span onClick={() => handleCreateAccountButton()}>
+                Create an Account
+              </span>
+            </p>
+          )}
         </div>
       </div>
       {activeErrorMessage && <ErrorMessage />}
