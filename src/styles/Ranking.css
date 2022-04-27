@@ -197,14 +197,6 @@
   .ranking .ranking-table .ranking-list-wrapper .ranking-list-element .ranking-list-element-link .item-number {
     margin: 0 auto;
   }
-  .ranking .ranking-table .ranking-list-wrapper .ranking-list-element .ranking-list-element-link .star-icon {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-  }
 }
 
 @media all and (min-width: 1024px) {
@@ -216,6 +208,9 @@
   }
   .ranking .ranking-table .ranking-table-header p {
     font-size: 1.6rem;
+  }
+  .ranking .ranking-table .ranking-list-wrapper {
+    min-height: calc(680px - 137px - 45px);
   }
   .ranking .ranking-table .ranking-list-wrapper .ranking-list-element div p {
     font-size: 1.6rem;
