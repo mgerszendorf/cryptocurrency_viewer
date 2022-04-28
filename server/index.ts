@@ -4,13 +4,13 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const User = require("./model/user");
-const cors = require("cors");
+const helmet = require("helmet");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const app = express();
-app.use(cors());
+app.use(helmet());
 app.use("/", express.static(path.join(__dirname, "static")));
 app.use(bodyParser.json());
 
