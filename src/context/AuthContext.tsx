@@ -1,12 +1,13 @@
 import { createContext, useState } from "react";
 import jwt_decode from "jwt-decode";
+import { IAuthContext } from "../interfaces/IAuthContext";
 
-const AuthContext = createContext<any>(null);
+const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 
 export default AuthContext;
 
-export const AuthProvider: React.FC<any> = ({ children }) => {
-  const [user, setUser] = useState<string>();
+export const AuthProvider: React.FC = ({ children }) => {
+  const [user, setUser] = useState<any>();
   const [accessToken, setAccessToken] = useState<string>();
   const [refreshToken, setRefreshToken] = useState<string>();
   const [activeRegisterForm, setActiveRegisterForm] = useState<boolean>(false);
@@ -56,6 +57,7 @@ export const AuthProvider: React.FC<any> = ({ children }) => {
 
     if (response.status === 200) {
       setAccessToken(response.accessToken);
+      setRefreshToken(response.refreshToken);
     } else {
       logoutUser();
     }

@@ -19,14 +19,14 @@ export const News: React.FC = () => {
   useEffect(() => {
     async function fetchData() {
       await axios
-        .post("http://localhost:8000/api/get_news", {
+        .post("https://cryptocurrencyviewer.herokuapp.com/api/get_news", {
           newsCategory,
           count: 100,
         })
         .then((res: any) => setNewsData(res.data));
 
       await axios
-        .get("http://localhost:8000/api/get_crypto_list")
+        .get("https://cryptocurrencyviewer.herokuapp.com/api/get_crypto_list")
         .then((res: any) => setCryptoList(res.data));
     }
     fetchData();

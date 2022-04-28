@@ -12,12 +12,12 @@ export const Ranking: React.FC = () => {
   // button state to sort
   const [rankingToggle, setRankingToggle] = useState<boolean>(true);
   const [cryptoList, setCryptoList] = useState<ICryptoListResponse>();
+  const [favoriteCryptocurrencies, setFavoriteCryptocurrencies] =
+    useState<any>();
   const [updateFavouriteCryptocurrencies, setUpdateFavouriteCryptocurrencies] =
     useState<boolean>(false);
-  const [favoriteCryptocurrencies, setFavoriteCryptocurrencies] = useState<any>(
-    []
-  );
-  const { user } = useContext(AuthContext);
+  const { user, accessToken, updateToken, handleErrorMessage } =
+    useContext(AuthContext);
   const { handleSelectCryptocurrency } = useContext(
     SelectCryptocurrencyContext
   );
@@ -26,7 +26,7 @@ export const Ranking: React.FC = () => {
   useEffect(() => {
     async function fetchData() {
       await axios
-        .get("http://localhost:8000/api/get_crypto_list")
+        .get("https://cryptocurrencyviewer.herokuapp.com/api/get_crypto_list")
         .then((res: any) => setCryptoList(res.data));
     }
     fetchData();
@@ -58,37 +58,56 @@ export const Ranking: React.FC = () => {
       symbol,
     };
 
-    await fetch("http://localhost:8000/api/update_favorite_cryptocurrencies", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        email: user.email,
-        uuid: uuid,
-        coinData,
-      }),
-    });
-    setUpdateFavouriteCryptocurrencies(!updateFavouriteCryptocurrencies);
+    try {
+      let response = await fetch(
+        "https://cryptocurrencyviewer.herokuapp.com/api/update_favorite_cryptocurrencies",
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+            authorization: "Bearer " + accessToken,
+          },
+          body: JSON.stringify({
+            email: user?.email,
+            uuid: uuid,
+            coinData,
+          }),
+        }
+      );
+      setUpdateFavouriteCryptocurrencies(!updateFavouriteCryptocurrencies);
+
+      if (response.status === 401) {
+        updateToken();
+      }
+      if (response.status === 403) {
+        updateToken();
+      }
+    } catch {
+      handleErrorMessage("You must log in to access this feature");
+    }
   }
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/get_favorite_cryptocurrencies", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        email: user?.email,
-      }),
-    })
+    fetch(
+      "https://cryptocurrencyviewer.herokuapp.com/api/get_favorite_cryptocurrencies",
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          authorization: "Bearer " + accessToken,
+        },
+        body: JSON.stringify({
+          email: user?.email,
+        }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
           setFavoriteCryptocurrencies(data.favoriteCryptocurrencies);
         }
       });
-  }, [user?.email, updateFavouriteCryptocurrencies]);
+  }, [user?.email, accessToken, updateFavouriteCryptocurrencies]);
 
   if (!cryptoList) return <Loader />;
 
