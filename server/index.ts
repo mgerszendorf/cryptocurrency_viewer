@@ -115,7 +115,7 @@ app.post("/api/users/refresh_token", (req: any, res: any) => {
 
 // Logout
 
-app.post("./logout", (req: any, res: any) => {
+app.post("/logout", (req: any, res: any) => {
   const { refreshToken } = req.body;
   refreshTokens = refreshTokens.filter((t) => t !== refreshToken);
   res.sendStatus(204);
