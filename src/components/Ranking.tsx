@@ -26,7 +26,7 @@ export const Ranking: React.FC = () => {
   useEffect(() => {
     async function fetchData() {
       await axios
-        .get("http://localhost:8000/api/get_crypto_list")
+        .get("https://cryptocurrencyviewer.herokuapp.com/api/get_crypto_list")
         .then((res: any) => setCryptoList(res.data));
     }
     fetchData();
@@ -60,7 +60,7 @@ export const Ranking: React.FC = () => {
 
     try {
       let response = await fetch(
-        "http://localhost:8000/api/update_favorite_cryptocurrencies",
+        "https://cryptocurrencyviewer.herokuapp.com/api/update_favorite_cryptocurrencies",
         {
           method: "POST",
           headers: {
@@ -88,16 +88,19 @@ export const Ranking: React.FC = () => {
   }
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/get_favorite_cryptocurrencies", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        authorization: "Bearer " + accessToken,
-      },
-      body: JSON.stringify({
-        email: user?.email,
-      }),
-    })
+    fetch(
+      "https://cryptocurrencyviewer.herokuapp.com/api/get_favorite_cryptocurrencies",
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          authorization: "Bearer " + accessToken,
+        },
+        body: JSON.stringify({
+          email: user?.email,
+        }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {

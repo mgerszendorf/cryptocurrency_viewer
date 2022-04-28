@@ -26,13 +26,16 @@ export const RegisterForm: React.FC = () => {
   async function sendRegisterFormData(e: any) {
     e.preventDefault();
 
-    const result = await fetch("http://localhost:8000/api/users/register", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(registerFormData),
-    }).then((response) => response.json());
+    const result = await fetch(
+      "https://cryptocurrencyviewer.herokuapp.com/api/users/register",
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(registerFormData),
+      }
+    ).then((response) => response.json());
 
     if (result.status === 200) {
       handleErrorMessage("Success");
