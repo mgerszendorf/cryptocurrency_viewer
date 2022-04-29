@@ -4,27 +4,15 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const User = require("./model/user");
-const helmet = require("helmet");
+const cors = require("cors");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const app = express();
-app.use(helmet());
+app.use(cors());
 app.use("/", express.static(path.join(__dirname, "static")));
 app.use(bodyParser.json());
-
-// Allow origin Access origin and methods, ...
-app.use(function (req: any, res: any, next: any) {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://cryptocurrencyviewer.herokuapp.com"
-  );
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  res.setHeader("Access-Control-Allow-Credentials", true);
-  next();
-});
 
 // MongoDB connection
 mongoose

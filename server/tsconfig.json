@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "lib": ["es2016"],
+    "removeComments": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "target": "es2016",
+    "module": "commonjs", 
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "resolveJsonModule": true,
+    "noEmitOnError": true
+  },
+  "include": ["./**/*.ts"],
+  "exclude": ["node_modules/**/*", ".vscode/**/*"]
+}
