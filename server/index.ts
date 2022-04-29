@@ -14,7 +14,7 @@ app.use(cors());
 app.use("/", express.static(path.join(__dirname, "static")));
 app.use(bodyParser.json());
 
-// MongoDB connection
+// MongoDB connection.
 mongoose
   .connect(
     "mongodb+srv://cryptocurrency_viewer_database:cryptocurrency_viewer_database@cluster0.jguvn.mongodb.net/cryptocurrency_viewer_database?retryWrites=true&w=majority",
