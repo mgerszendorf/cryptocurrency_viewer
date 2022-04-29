@@ -14,8 +14,12 @@ app.use(helmet());
 app.use("/", express.static(path.join(__dirname, "static")));
 app.use(bodyParser.json());
 
+// Allow origin Access origin and methods, ...
 app.use(function (req: any, res: any, next: any) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://cryptocurrencyviewer.herokuapp.com"
+  );
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   res.setHeader("Access-Control-Allow-Credentials", true);
