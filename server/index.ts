@@ -351,6 +351,8 @@ app.post("/api/get_news", (req: any, res: any) => {
     });
 });
 
-app.listen(8000, () => {
-  console.log("Server running at 8000");
+const port = process.env.PORT || 8000;
+
+app.listen(port, () => {
+  console.log(`Server running at ${port}`);
 });
