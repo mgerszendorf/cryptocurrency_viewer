@@ -22,18 +22,21 @@ export const Dashboard: React.FC = () => {
   useEffect(() => {
     async function fetchData() {
       await axios
-        .get("http://localhost:8000/api/get_crypto_list")
+        .get("https://cryptocurrencyviewer.herokuapp.com/api/get_crypto_list")
         .then((res: any) => setCryptoList(res.data));
 
-      fetch("http://localhost:8000/api/get_favorite_cryptocurrencies", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          email: user?.email,
-        }),
-      })
+      fetch(
+        "https://cryptocurrencyviewer.herokuapp.com/api/get_favorite_cryptocurrencies",
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            email: user?.email,
+          }),
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           if (data.status === 200) {
