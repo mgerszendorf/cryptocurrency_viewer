@@ -18,16 +18,19 @@ export const AuthProvider: React.FC = ({ children }) => {
   let loginUser = async (e: any) => {
     e.preventDefault();
 
-    const response = await fetch("http://localhost:8000/api/users/sign_in", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        email: e.target.email.value,
-        password: e.target.password.value,
-      }),
-    });
+    const response = await fetch(
+      "https://cryptocurrencyviewer.herokuapp.com/api/users/sign_in",
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          email: e.target.email.value,
+          password: e.target.password.value,
+        }),
+      }
+    );
 
     let result = await response.json();
 
@@ -45,7 +48,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   let updateToken = async () => {
     const response = await fetch(
-      "http://localhost:8000/api/users/refresh_token",
+      "https://cryptocurrencyviewer.herokuapp.com/api/users/refresh_token",
       {
         method: "POST",
         headers: {
