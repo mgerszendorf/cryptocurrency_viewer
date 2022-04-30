@@ -218,10 +218,19 @@ app.post(
       }
 
       User.findOne({ email }, (err: any, data: any) => {
-        return res.json({
-          status: 200,
-          favoriteCryptocurrencies: data.favoriteCryptocurrencies,
-        });
+        if (err) {
+          console.log(err);
+        }
+        if (data != null) {
+          if (!data.username) {
+            return res.json({
+              status: 200,
+              favoriteCryptocurrencies: data.favoriteCryptocurrencies,
+            });
+          } else {
+            console.log("null");
+          }
+        }
       });
     });
   }
@@ -233,10 +242,19 @@ app.post("/api/get_favorite_cryptocurrencies", (req: any, res: any) => {
   const { email } = req.body;
 
   User.findOne({ email }, (err: any, data: any) => {
-    return res.json({
-      status: 200,
-      favoriteCryptocurrencies: data.favoriteCryptocurrencies,
-    });
+    if (err) {
+      console.log(err);
+    }
+    if (data != null) {
+      if (!data.username) {
+        return res.json({
+          status: 200,
+          favoriteCryptocurrencies: data.favoriteCryptocurrencies,
+        });
+      } else {
+        console.log("null");
+      }
+    }
   });
 });
 
