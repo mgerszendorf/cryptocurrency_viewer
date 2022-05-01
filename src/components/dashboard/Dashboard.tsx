@@ -48,7 +48,7 @@ export const Dashboard: React.FC = () => {
   }, [setCryptoList, user?.email]);
 
   if (!cryptoList) return <Loader />;
-  if (!favoriteCryptocurrencies) return <Loader />;
+  // if (!favoriteCryptocurrencies) return <Loader />;
 
   return (
     <section className="dashboard">
