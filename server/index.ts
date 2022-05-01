@@ -187,13 +187,6 @@ app.post(
     const { email, uuid, coinData } = req.body;
 
     User.findOne({ email }, (err: any, data: any) => {
-      // if (
-      //   data.favoriteCryptocurrencies.filter((e: any) => e.uuid === uuid).length >
-      //   0
-      // ) {
-      //   console.log("ok");
-      // }
-
       if (
         data.favoriteCryptocurrencies.filter((e: any) => e.uuid === uuid)
           .length > 0
@@ -207,31 +200,18 @@ app.post(
         User.findOneAndUpdate(
           { email },
           { $addToSet: { favoriteCryptocurrencies: coinData } },
-          function (error: any, success: any) {
-            // if (error) {
-            //   console.log("error" + error);
-            // } else {
-            //   console.log("success" + success);
-            // }
-          }
+          function (error: any, success: any) {}
         );
       }
 
-      User.findOne({ email }, (err: any, data: any) => {
-        if (err) {
-          console.log(err);
-        }
-        if (data != null) {
-          if (!data.username) {
-            return res.json({
-              status: 200,
-              favoriteCryptocurrencies: data.favoriteCryptocurrencies,
-            });
-          } else {
-            console.log("null");
-          }
-        }
-      });
+      if (email) {
+        User.findOne({ email }, (err: any, data: any) => {
+          return res.json({
+            status: 200,
+            favoriteCryptocurrencies: data.favoriteCryptocurrencies,
+          });
+        });
+      }
     });
   }
 );
@@ -241,21 +221,14 @@ app.post(
 app.post("/api/get_favorite_cryptocurrencies", (req: any, res: any) => {
   const { email } = req.body;
 
-  User.findOne({ email }, (err: any, data: any) => {
-    if (err) {
-      console.log(err);
-    }
-    if (data != null) {
-      if (!data.username) {
-        return res.json({
-          status: 200,
-          favoriteCryptocurrencies: data.favoriteCryptocurrencies,
-        });
-      } else {
-        console.log("null");
-      }
-    }
-  });
+  if (email) {
+    User.findOne({ email }, (err: any, data: any) => {
+      return res.json({
+        status: 200,
+        favoriteCryptocurrencies: data.favoriteCryptocurrencies,
+      });
+    });
+  }
 });
 
 // GET CRYPTO LIST
