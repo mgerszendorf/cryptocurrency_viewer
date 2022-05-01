@@ -5,7 +5,7 @@
 **About The Project** <br />
 A website that displays information and statistics on cryptocurrencies. The Dashboard section displays the most popular cryptocurrencies, news about the selected currency and the welcome header. Due to an unfinished backend, the loader is displayed in this section
 
-![image](https://user-images.githubusercontent.com/81325472/166139294-c8a95265-7912-48ac-bef6-88a79f99fb48.png)
+![image](https://user-images.githubusercontent.com/81325472/166159900-ed8acd0c-028b-4946-8191-edc7f7db4f84.png)
 
 The Live Chart section displays a chart with the option of changing the time and currency
 
