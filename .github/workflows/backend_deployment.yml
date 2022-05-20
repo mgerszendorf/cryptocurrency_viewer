@@ -16,9 +16,6 @@ jobs:
         node-version: [16.x]
 
     steps:
-      - name: Checkout the backend directory
-        run: cd backend/
-
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -30,12 +27,15 @@ jobs:
         
       - name: Install dependencies
         run: yarn install --frozen-lockfile
+        working-directory: backend
 
       - name: Build
         run: yarn build
+        working-directory: backend
 
       - name: Test
         run: yarn test
+        working-directory: backend
 
   deploy:
     needs: build-and-test
