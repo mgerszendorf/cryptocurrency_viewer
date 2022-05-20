@@ -30,6 +30,15 @@
   margin-top: 1rem;
 }
 
+.dashboard .dashboard-left-area .abbreviated-statistics-wrapper .empty-favorite-cryptocurrencies {
+  color: #fff;
+  font-size: 1.6rem;
+  margin-top: 1.5rem;
+  max-width: 500px;
+  text-align: center;
+  padding: 0 2rem;
+}
+
 @media all and (min-width: 1024px) {
   .dashboard {
     -webkit-box-orient: horizontal;
@@ -68,6 +77,11 @@
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
     overflow-y: auto;
+  }
+  .dashboard .dashboard-left-area .abbreviated-statistics-wrapper .empty-favorite-cryptocurrencies {
+    text-align: left;
+    padding: 0;
+    line-height: 1.3;
   }
   .dashboard .dashboard-left-area .abbreviated-statistics-wrapper::-webkit-scrollbar {
     width: 8px;

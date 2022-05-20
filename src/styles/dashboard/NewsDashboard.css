@@ -157,5 +157,8 @@
   .crypto-news-dashboard .news-dashboard-element-wrapper .news-dashboard-element a:hover {
     background-color: #21212b;
   }
+  .crypto-news-dashboard .news-dashboard-element-wrapper .news-dashboard-element .empty-crypto-news-info-dashboard {
+    line-height: 1.3;
+  }
 }
 /*# sourceMappingURL=NewsDashboard.css.map */

@@ -1,0 +1,84 @@
+@mixin column-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@mixin row-y-center {
+  display: flex;
+  align-items: center;
+}
+
+@mixin select {
+  font-size: 1.6rem;
+  color: $txt-grey;
+  border-radius: 16px;
+  border: none;
+  padding: 1.5rem;
+  background-color: $elements_background;
+  appearance: none;
+  background-repeat: no-repeat;
+  background-size: 1rem auto;
+  background-position: right 1.5rem center;
+  background-image: url("../img/arrow-down-sign-to-navigate.png");
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  option {
+    font-size: 1.6rem;
+  }
+}
+
+@mixin statistics-div-element {
+  background-color: $elements_background;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90vw;
+  max-width: 450px;
+  margin-bottom: 2rem;
+}
+
+@mixin statistics-div-element-header {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #fff;
+  @media all and (min-width: 1024px) {
+    font-size: 1.6rem;
+  }
+  @media all and (min-width: 1240px) {
+    font-size: 2rem;
+  }
+}
+
+@mixin statistics-div-element-value {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #fff;
+  margin: 4rem 0;
+  @media all and (min-width: 1024px) {
+    font-size: 2rem;
+  }
+  @media all and (min-width: 1240px) {
+    font-size: 2.5rem;
+  }
+}
+
+@mixin scroll-bar {
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $elements_background;
+    border-radius: 100vw;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $scrollbar-thumb-color;
+    border-radius: 100vw;
+  }
+}

@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { BiHomeAlt, BiNews } from "react-icons/bi";
 import {
@@ -74,8 +74,6 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({ width }) => {
     color: "#1fc2a0",
   };
 
-  console.log(user);
-
   return (
     <div className="navigation-bar">
       <div className="menu-icon">
@@ -118,12 +116,20 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({ width }) => {
         <ul className="menu-links">
           <li>
             <Link
-              to="/"
+              to="/cryptocurrency_viewer"
               onClick={() => setActiveMenu(false)}
-              style={useLocation().pathname === "/" ? styleLink : undefined}
+              style={
+                useLocation().pathname === "/cryptocurrency_viewer"
+                  ? styleLink
+                  : undefined
+              }
             >
               <BiHomeAlt
-                style={useLocation().pathname === "/" ? styleSvg : undefined}
+                style={
+                  useLocation().pathname === "/cryptocurrency_viewer"
+                    ? styleSvg
+                    : undefined
+                }
               />
               Dashboard
             </Link>
@@ -205,13 +211,14 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({ width }) => {
               <GoSignIn /> Sign in
             </button>
           )}
-
-          <p>
-            Not registered yet?{" "}
-            <span onClick={() => handleCreateAccountButton()}>
-              Create an Account
-            </span>
-          </p>
+          {!user && (
+            <p>
+              Not registered yet?{" "}
+              <span onClick={() => handleCreateAccountButton()}>
+                Create an Account
+              </span>
+            </p>
+          )}
         </div>
       </div>
       {activeErrorMessage && <ErrorMessage />}

@@ -1,46 +1,49 @@
-# Getting Started with Create React App
+# Project name & pitch
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Cryptocurrency viewer** <br />
 
-## Available Scripts
+**About The Project** <br />
+A website that displays information and statistics on cryptocurrencies. The Dashboard section displays the most popular cryptocurrencies, news about the selected currency and the welcome header. Due to an unfinished backend, the loader is displayed in this section
 
-In the project directory, you can run:
+![image](https://user-images.githubusercontent.com/81325472/166159900-ed8acd0c-028b-4946-8191-edc7f7db4f84.png)
 
-### `npm start`
+The Live Chart section displays a chart with the option of changing the time and currency
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+![image](https://user-images.githubusercontent.com/81325472/166137268-737f6cb9-5efb-4a1a-a176-d744c6f295d7.png)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The Statistics section displays detailed information about the cryptocurrency
 
-### `npm test`
+![image](https://user-images.githubusercontent.com/81325472/166137276-5292215a-70cc-48d6-b79b-4046da9219f8.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The Ranking section displays 50 cryptocurrencies sorted by popularity. The order can be reversed by clicking on the # sign. When the user is logged in, he can use the star to add a currency to his favorites (it will be displayed in the Dashboard section). After clicking on a specific cryptocurrency, we will see detailed statistics of this currency.
 
-### `npm run build`
+![image](https://user-images.githubusercontent.com/81325472/166137295-1201d506-8383-4bab-bea5-63222b263c1e.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The News section displays information from around the world on the selected cryptocurrency
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![image](https://user-images.githubusercontent.com/81325472/166137304-a1d6156a-577b-4893-ba9a-04e58a23468d.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Login and registration system
 
-### `npm run eject`
+![image](https://user-images.githubusercontent.com/81325472/166137354-4c5321ed-f3bb-40fc-95f7-1e86d4b5e470.png)
+![image](https://user-images.githubusercontent.com/81325472/166137365-90bd9e62-25d4-41b1-b6ca-aaab8ef9c36a.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+A website that displays information and statistics on cryptocurrencies. The user has the option to add his favorite cryptocurrencies in the Ranking section and track them on his daschboard. The application displays all the news from the world about the cryptocurrency selected by us. The live chart allows us to track the increases and decreases in the price of our cryptocurrency. Technology stack: React.js, TypeScript, SCSS, Node.js, Express.js, MongoDB
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+# Project status
+This project is currently in development. There is a backend to be completed
 
-## Learn More
+# Application preview
+Using gh-pages, we can view the project on an ongoing basis at the link: https://mgerszendorf.github.io/cryptocurrency_viewer/
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Installation and setup instructions
+Clone down this repository. You will need `node` and `npm` installed globally on your machine. <br />
+Launching the preview: <br />
+`npm start` <br />
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Packages used in the project
+Frontend: axios, chart.js, jwt-decode, moment.js
+Backend: axios, bcryptjs, body-parser, cors, dotenv, jsonwebtoken
+

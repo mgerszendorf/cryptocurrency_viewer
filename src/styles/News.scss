@@ -4,7 +4,6 @@
 .news {
   @include column-center;
   width: 100vw;
-  height: 100vh;
   min-height: 680px;
   padding: 2rem;
 
@@ -71,7 +70,7 @@
         }
       }
 
-      &:hover {
+      &:active {
         a {
           background-color: $elements-hover;
         }
@@ -84,6 +83,7 @@
   .news {
     align-items: flex-start;
     padding: 2rem 4rem;
+    height: 100vh;
 
     .search-and-header-wrapper {
       @include row-y-center;
@@ -122,11 +122,18 @@
         a {
           width: 60vw;
           max-width: 550px;
+          margin: 2rem 1rem;
           .news-element-information-wrapper {
             .news-element-header {
               font-size: 1.6rem;
               margin-bottom: 2rem;
             }
+          }
+        }
+
+        &:hover {
+          a {
+            background-color: $elements-hover;
           }
         }
       }

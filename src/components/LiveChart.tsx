@@ -43,18 +43,21 @@ export const LiveChart: React.FC = () => {
   useEffect(() => {
     async function fetchData() {
       await axios
-        .post("http://localhost:8000/api/get_crypto_history", {
-          activeUuid,
-          timePeriod,
-        })
+        .post(
+          "https://cryptocurrencyviewer.herokuapp.com/api/get_crypto_history",
+          {
+            activeUuid,
+            timePeriod,
+          }
+        )
         .then((res: any) => setPriceHistory(res.data));
 
       await axios
-        .get("http://localhost:8000/api/get_crypto_list")
+        .get("https://cryptocurrencyviewer.herokuapp.com/api/get_crypto_list")
         .then((res: any) => setCryptoList(res.data));
 
       await axios
-        .post("http://localhost:8000/api/get_coin", {
+        .post("https://cryptocurrencyviewer.herokuapp.com/api/get_coin", {
           activeUuid,
         })
         .then((res: any) => setActiveCoin(res.data));
@@ -201,7 +204,7 @@ export const LiveChart: React.FC = () => {
           <Line
             data={data}
             options={options}
-            style={{ width: "100%", maxHeight: "95%" }}
+            style={{ width: "100%", maxHeight: "85%" }}
           />
         </div>
       </div>

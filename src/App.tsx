@@ -44,7 +44,7 @@ function App() {
         <SelectCryptocurrencyProvider>
           <NavigationBar width={width} />
           <Routes>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/cryptocurrency_viewer" element={<Dashboard />} />
             <Route path="/news" element={<News />} />
             <Route path="/ranking" element={<Ranking />} />
             <Route path="/live_chart" element={<LiveChart />} />

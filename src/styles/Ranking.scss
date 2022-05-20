@@ -170,11 +170,6 @@
             .item-number {
               margin: 0 auto;
             }
-
-            .star-icon {
-              display: flex;
-              justify-content: center;
-            }
           }
         }
       }
@@ -196,6 +191,8 @@
         }
       }
       .ranking-list-wrapper {
+        min-height: calc(680px - 137px - 45px);
+
         .ranking-list-element {
           div {
             p {

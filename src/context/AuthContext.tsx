@@ -1,12 +1,13 @@
 import { createContext, useState } from "react";
 import jwt_decode from "jwt-decode";
+import { IAuthContext } from "../interfaces/IAuthContext";
 
-const AuthContext = createContext<any>(null);
+const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 
 export default AuthContext;
 
-export const AuthProvider: React.FC<any> = ({ children }) => {
-  const [user, setUser] = useState<string>();
+export const AuthProvider: React.FC = ({ children }) => {
+  const [user, setUser] = useState<any>();
   const [accessToken, setAccessToken] = useState<string>();
   const [refreshToken, setRefreshToken] = useState<string>();
   const [activeRegisterForm, setActiveRegisterForm] = useState<boolean>(false);
@@ -17,16 +18,19 @@ export const AuthProvider: React.FC<any> = ({ children }) => {
   let loginUser = async (e: any) => {
     e.preventDefault();
 
-    const response = await fetch("http://localhost:8000/api/users/sign_in", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        email: e.target.email.value,
-        password: e.target.password.value,
-      }),
-    });
+    const response = await fetch(
+      "https://cryptocurrencyviewer.herokuapp.com/api/users/sign_in",
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          email: e.target.email.value,
+          password: e.target.password.value,
+        }),
+      }
+    );
 
     let result = await response.json();
 
@@ -44,7 +48,7 @@ export const AuthProvider: React.FC<any> = ({ children }) => {
 
   let updateToken = async () => {
     const response = await fetch(
-      "http://localhost:8000/api/users/refresh_token",
+      "https://cryptocurrencyviewer.herokuapp.com/api/users/refresh_token",
       {
         method: "POST",
         headers: {
@@ -56,6 +60,7 @@ export const AuthProvider: React.FC<any> = ({ children }) => {
 
     if (response.status === 200) {
       setAccessToken(response.accessToken);
+      setRefreshToken(response.refreshToken);
     } else {
       logoutUser();
     }
