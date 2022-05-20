@@ -1,0 +1,24 @@
+name: cryptocurrency-viewer-frontend-deployment
+on:
+  push:
+    branches: 
+      - master
+    paths:
+      - "frontend/**"
+      - ".github/workflows/frontend_deployment.yml"
+
+jobs:    
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Deploy to Heroku
+      uses: akhileshns/heroku-deploy@v3.12.12
+      with:
+        heroku_api_key: ${{secrets.HEROKU_FRONTEND_API_KEY}}
+        heroku_app_name: ${{secrets.HEROKU_FRONTEND_APP_NAME}}
+        heroku_email: ${{secrets.HEROKU_EMAIL}}
+        remote_branch: master

@@ -1,0 +1,9 @@
+.github
+.vscode
+.eslintignore
+.eslintrc.js
+.gitiginore
+.prettierrc
+node_modules
+.env.example
+lib
