@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  cryptocurrency_viewer_mongo:
+    container_name: cryptocurrency-viewer-mongo
+    image: mongo
+    volumes:
+      - cv-mongo:/data/db
+    ports:
+      - ${MONGODB_PORT:-27017}:${MONGODB_PORT:-27017}
+    networks:
+      - webnet
+  cryptocurrency_viewer_api:
+    container_name: cryptocurrency-viewer-backend
+    build:
+      context: .
+      target: development
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    ports:
+      - ${SERVER_PORT:-3000}:${SERVER_PORT:-3000}
+      - ${DEBUGGER_PORT:-9229}:${DEBUGGER_PORT:-9229}
+    depends_on:
+      - cryptocurrency_viewer_mongo
+    networks:
+      - webnet
+
+volumes: 
+  cv-mongo:
+
+networks:
+  webnet:

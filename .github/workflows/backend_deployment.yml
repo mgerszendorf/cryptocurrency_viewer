@@ -1,0 +1,49 @@
+name: cryptocurrency-viewer-backend-deployment
+on:
+  push:
+    branches: 
+      - master
+    paths:
+      - "backend/**"
+      - ".github/workflows/backend_deployment.yml"
+
+jobs:    
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - name: Checkout code
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }} and install dependencies
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile
+
+      - name: Build
+        run: yarn build
+
+      - name: Test
+        run: yarn test
+
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+  
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_BACKEND_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_BACKEND_APP_NAME}}
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+          remote_branch: master
