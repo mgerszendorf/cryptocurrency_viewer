@@ -1,3 +1,4 @@
+
 name: cryptocurrency-viewer-backend-pr-checks
 on:
   pull_request:
@@ -8,7 +9,7 @@ on:
       - ".github/workflows/backend_pull_request_checks.yml"
 
 jobs:
-  build:
+  lint-and-test:
     runs-on: ubuntu-latest
 
     strategy:
