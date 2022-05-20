@@ -12,6 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout the frontend directory
+        run: cd frontend/
+
       - name: Checkout code
         uses: actions/checkout@v2
   
