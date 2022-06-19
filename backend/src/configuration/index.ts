@@ -19,7 +19,7 @@ interface Configuration {
 }
 
 const DEFAULT_VARIABLES = {
-  SERVER_PORT: 3000,
+  PORT: 3000,
   ACCESS_TOKEN_TTL_SECONDS: 10800, // 3 hours
   REFRESH_TOKEN_TTL_SECONDS: 259200, // 3 days
   ACCESS_TOKEN_ALGORITHM: "HS512",
@@ -28,7 +28,7 @@ const DEFAULT_VARIABLES = {
 export const configuration = (): Configuration => {
   const defaultConfiguration = {
     server: {
-      port: parseInt(process.env.SERVER_PORT as string, 10) || DEFAULT_VARIABLES.SERVER_PORT,
+      port: parseInt(process.env.PORT as string, 10) || DEFAULT_VARIABLES.PORT,
     },
     mongo: {
       global: process.env.MONGO_URI as string,
