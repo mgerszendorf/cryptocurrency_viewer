@@ -1,13 +1,13 @@
 name: cryptocurrency-viewer-backend-deployment
 on:
   push:
-    branches: 
+    branches:
       - master
     paths:
       - "backend/**"
       - ".github/workflows/backend_deployment.yml"
 
-jobs:    
+jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
@@ -23,9 +23,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'yarn'
+          cache: "yarn"
           cache-dependency-path: backend/yarn.lock
-        
+
       - name: Install dependencies
         run: yarn install --frozen-lockfile
         working-directory: backend
@@ -45,11 +45,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-  
-      - name: Deploy to Heroku
-        uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-          heroku_api_key: ${{secrets.HEROKU_BACKEND_API_KEY}}
-          heroku_app_name: ${{secrets.HEROKU_BACKEND_APP_NAME}}
-          heroku_email: ${{secrets.HEROKU_EMAIL}}
-          branch: master
+
+      # - name: Deploy to Heroku
+      #   uses: akhileshns/heroku-deploy@v3.12.12
+      #   with:
+      #     heroku_api_key: ${{secrets.HEROKU_BACKEND_API_KEY}}
+      #     heroku_app_name: ${{secrets.HEROKU_BACKEND_APP_NAME}}
+      #     heroku_email: ${{secrets.HEROKU_EMAIL}}
+      #     branch: master
+
+      - name: Add backend remote origin
+        run: git remote add heroku-backend https://heroku:${{ secrets.HEROKU_BACKEND_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_BACKEND_APP_NAME }}.git
+
+      - name: Deploy backend to Heroku
+        run: git push heroku-backend `git subtree split --prefix backend master`:refs/heads/master --force
