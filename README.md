@@ -3,7 +3,7 @@
 **Cryptocurrency viewer** <br />
 
 **About The Project** <br />
-A website that displays information and statistics on cryptocurrencies. The Dashboard section displays the most popular cryptocurrencies, news about the selected currency and the welcome header. Due to an unfinished backend, the loader is displayed in this section
+A website that displays information and statistics on cryptocurrencies. The Dashboard section displays the most popular cryptocurrencies, news about the selected currency and the welcome header.
 
 ![image](https://user-images.githubusercontent.com/81325472/166159900-ed8acd0c-028b-4946-8191-edc7f7db4f84.png)
 
@@ -31,12 +31,6 @@ Login and registration system
 
 
 A website that displays information and statistics on cryptocurrencies. The user has the option to add his favorite cryptocurrencies in the Ranking section and track them on his daschboard. The application displays all the news from the world about the cryptocurrency selected by us. The live chart allows us to track the increases and decreases in the price of our cryptocurrency. Technology stack: React.js, TypeScript, SCSS, Node.js, Express.js, MongoDB
-
-# Project status
-This project is currently in development. There is a backend to be completed
-
-# Application preview
-Using gh-pages, we can view the project on an ongoing basis at the link: https://mgerszendorf.github.io/cryptocurrency_viewer/
 
 # Installation and setup instructions
 Clone down this repository. You will need `node` and `npm` installed globally on your machine. <br />
